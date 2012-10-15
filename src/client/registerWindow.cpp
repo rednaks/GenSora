@@ -11,9 +11,14 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	nomLineEdit = new QLineEdit;
 	prenomLineEdit = new QLineEdit;
 	emailLineEdit = new QLineEdit;
-	// TODO INPUT CONTROL
+	/* Faire en sorte que l'utilisateur entre un email valide */
+	QRegExp rx("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$");
+	QValidator *validator = new QRegExpValidator(rx, this);
+	emailLineEdit->setValidator(validator);
+
 	pseudoLineEdit = new QLineEdit;
 	passwordLineEdit = new QLineEdit;
+	passwordLineEdit->setEchoMode(QLineEdit::Password);
 
 
 	submitButton = new QPushButton("Envoyer");

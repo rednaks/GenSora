@@ -8,4 +8,6 @@ client.bin:
 server.bin:
 	@echo "Not yet implemented"
 
-
+clean:
+	@echo "Nettoyage du repertoire client"
+	@cd src/client && make clean

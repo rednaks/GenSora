@@ -3,7 +3,7 @@
 RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	
 	nomLabel = new QLabel("Nom");
-	prenomLabel = new QLabel("Prénom");
+	prenomLabel = new QLabel(QString::fromUtf8("Prénom"));
 	emailLabel = new QLabel("Email");
 	pseudoLabel = new QLabel("Pseudo");
 	passwordLabel = new QLabel("Mot de passe");

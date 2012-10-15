@@ -15,10 +15,10 @@ Installer aussi les outils de compilation :
 
 * Compilation:
 ** Client : 
-	make client
+	make client.bin
 
 ** Server : 
-	make server
+	make server.bin
 
 Pour compiler tout le projet exécutez simplement :
 	make

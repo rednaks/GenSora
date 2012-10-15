@@ -9,6 +9,7 @@ AuthWindow::AuthWindow(){
 	
 	loginButton = new QPushButton("Se connecter");
 	registerButton = new QPushButton("S'enregister");
+	connect(registerButton, SIGNAL(clicked()), this, SLOT(openRegisterWindow()));
 	
 	QFormLayout *formLayout = new QFormLayout;
 	formLayout->addRow(pseudoLabel, pseudoLineEdit);
@@ -29,5 +30,7 @@ AuthWindow::~AuthWindow(){
 	delete loginButton;
 	delete registerButton;
 }
-
-
+void AuthWindow::openRegisterWindow(){
+	RegisterWindow *regWin = new RegisterWindow(this);
+	regWin->show();
+}

@@ -8,6 +8,7 @@ AuthWindow::AuthWindow(){
 	passwordLineEdit->setEchoMode(QLineEdit::Password);
 	
 	loginButton = new QPushButton("Se connecter");
+	connect(loginButton, SIGNAL(clicked()), this, SLOT(openContactWindow()));
 	registerButton = new QPushButton("S'enregister");
 	connect(registerButton, SIGNAL(clicked()), this, SLOT(openRegisterWindow()));
 	
@@ -33,4 +34,10 @@ AuthWindow::~AuthWindow(){
 void AuthWindow::openRegisterWindow(){
 	RegisterWindow *regWin = new RegisterWindow(this);
 	regWin->show();
+}
+
+void AuthWindow::openContactWindow(){
+	ContactWindow *conWin = new ContactWindow();
+	conWin->show();
+	//this->hide(); TODO
 }

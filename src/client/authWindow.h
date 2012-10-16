@@ -2,6 +2,7 @@
 #define AUTH_WINDOW_H
 #include <QtGui>
 #include "registerWindow.h"
+#include "contactWindow.h"
 
 class AuthWindow: public QMainWindow {
 	Q_OBJECT
@@ -12,6 +13,7 @@ public:
 
 private slots:
 	void openRegisterWindow();
+	void openContactWindow();
 
 private:
 	QLabel *pseudoLabel;

@@ -22,6 +22,8 @@ private:
 	QLineEdit *passwordLineEdit;
 	QPushButton *loginButton;
 	QPushButton *registerButton;
+	QLabel *logoLabel;
+	QLabel *infoLabel;
 
 };
 #endif

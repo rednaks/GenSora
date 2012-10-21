@@ -1,6 +1,9 @@
 #include "authWindow.h"
 
 AuthWindow::AuthWindow(){
+	logoLabel = new QLabel();
+	logoLabel->setPixmap(QPixmap("./rc/logo.png"));
+	
 	pseudoLabel = new QLabel("Nom");
 	passwordLabel = new QLabel("Mot de passe");
 	pseudoLineEdit = new QLineEdit;
@@ -16,8 +19,14 @@ AuthWindow::AuthWindow(){
 	formLayout->addRow(pseudoLabel, pseudoLineEdit);
 	formLayout->addRow(passwordLabel, passwordLineEdit);
 	formLayout->addRow(loginButton, registerButton);
+
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	mainLayout->addWidget(logoLabel, 0, Qt::AlignHCenter);
+	mainLayout->addLayout(formLayout);
+
 	QWidget *mainWidget = new QWidget;
-	mainWidget->setLayout(formLayout);
+
+	mainWidget->setLayout(mainLayout);
 
 	setCentralWidget(mainWidget);
 }

@@ -9,5 +9,5 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += authWindow.h registerWindow.h contactWindow.h net.h
-SOURCES += authWindow.cpp registerWindow.cpp main.cpp contactWindow.cpp net.cpp
+HEADERS += authWindow.h registerWindow.h contactWindow.h net.h user.h
+SOURCES += authWindow.cpp registerWindow.cpp main.cpp contactWindow.cpp net.cpp user.cpp

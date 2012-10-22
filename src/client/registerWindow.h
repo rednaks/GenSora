@@ -2,6 +2,9 @@
 #define REGISTER_WINDOW_H
 #include <QtGui>
 #include "net.h"
+#include "user.h"
+#include <iostream>
+
 
 class RegisterWindow: public QDialog {
 	Q_OBJECT

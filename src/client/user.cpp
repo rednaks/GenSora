@@ -8,36 +8,43 @@ User::User(std::string n, std::string pr, std::string e, std::string ps, std::st
 	password = pass;
 
 }
+User::User(){
+nom = "";
+prenom = "";
+email = "";
+pseudo = "";
+password = "";
+}
 
 // set & get
-        void setNom(std::string a){
+        void User::setNom(std::string a){
 	nom = a;
 }
-        void getNom(){
+        std::string User::getNom(){
 	return nom;
 }
-        void setPrenom(string a){
+        void User::setPrenom(std::string a){
 	prenom = a;
 }
-        void getPrenom(){
+        std::string User::getPrenom(){
 	return prenom;
 }
-        void setEmail(string a){
+        void User::setEmail(std::string a){
 	email = a;
 }
-        void getEmail(){
+        std::string User::getEmail(){
 	return email;
 }
-        void setPseudo(string a){
+        void User::setPseudo(std::string a){
 	pseudo = a;
 }
-        void getPseudo(){
+        std::string User::getPseudo(){
 	return pseudo;
 }
-        void setPassword(string a){
+        void User::setPassword(std::string a){
 	password = a;
 }
-        void getPassword(){
+        std::string User::getPassword(){
 	return password;
 }
 User::~User(){

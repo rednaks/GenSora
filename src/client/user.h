@@ -4,8 +4,8 @@
 
 
 
-class User: public QObject {
-	Q_OBJECT
+class User{
+	
 
 private:
 	 std::string nom;
@@ -14,16 +14,18 @@ private:
 	 std::string pseudo;
 	 std::string password;
 public:
+	User(std::string n, std::string pr, std::string e, std::string ps, std::string pass);
+	~User();
 	User();
-	void setNom(string a);
-	void getNom();
- 	void setPrenom(string a);
-        void getPrenom();
-	void setEmail(string a);
-        void getEmail();
-	void setPseudo(string a);
-        void getPseudo();
-	void setPassword(string a);
-        void getPassword();
+	void setNom(std::string a);
+	std::string getNom();
+ 	void setPrenom(std::string a);
+        std::string getPrenom();
+	void setEmail(std::string a);
+        std::string getEmail();
+	void setPseudo(std::string a);
+        std::string getPseudo();
+	void setPassword(std::string a);
+        std::string getPassword();
 };
 #endif

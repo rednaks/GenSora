@@ -46,24 +46,21 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 
 void RegisterWindow::submitData(){
 
-	QString nomR;
-	QString prenomR;
-	QString emailR;
-	QString pseudoR;
-	QString passwordR;
+	User u;
 
-	nomR = nomLineEdit->text();
-	prenomR = prenomLineEdit->text();
-	emailR = emailLineEdit->text();
-	pseudoR = pseudoLineEdit->text();
-	passwordR = passwordLineEdit->text();
+
+	u.setNom(nomLineEdit->text().toStdString());
+        u.setPrenom(prenomLineEdit->text().toStdString());
+        u.setEmail(emailLineEdit->text().toStdString());
+	u.setPseudo(pseudoLineEdit->text().toStdString());
+        u.setPassword(passwordLineEdit->text().toStdString());
 	/* TODO : 
 	QString host("localhost");
 	quint16 port(8080);
 	connection->connectToServer(host, port)
 	connection->sendMsg("INSCR:"+ ...);
 	*/
-}
+	std::cout << "Nom : " << u.getNom() << std::endl;}
 
 
 RegisterWindow::~RegisterWindow() {

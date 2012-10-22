@@ -3,10 +3,11 @@
 ######################################################################
 
 TEMPLATE = app
+QT += network
 TARGET = client.bin 
 DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += authWindow.h registerWindow.h contactWindow.h
-SOURCES += authWindow.cpp registerWindow.cpp main.cpp contactWindow.cpp
+HEADERS += authWindow.h registerWindow.h contactWindow.h net.h
+SOURCES += authWindow.cpp registerWindow.cpp main.cpp contactWindow.cpp net.cpp

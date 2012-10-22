@@ -42,7 +42,7 @@ void Server::receivedData(){
 
 	QString msg;
 	in >> msg; // Enfin si tout s'est bien passé, on récupère le message
-	// TODO : Traitement du message ...
+	traitMsg(msg);
 	mSize = 0;
 }
 
@@ -55,3 +55,21 @@ void Server::disconnectedClient(){
 		clients.removeOne(sock);
 	sock->deleteLater();
 }
+
+// Les méthodes :
+
+void Server::sendMsg(const QString &msg, QTcpSocket *client){
+	QByteArray packet;
+	QDataStream out(&packet, QIODevice::WriteOnly);
+	out << (quint16) 0;
+	out << msg;
+	out.device()->seek(0);
+	out << (quint16) (packet.size() - sizeof(quint16));
+	client->write(packet);
+}
+
+void Server::traitMsg(const QString &msg){
+
+	//TODO : traitement du message.
+	std::cout << "DEBUG : Msg à traiter : " << msg.toStdString() << std::endl;
+} 

@@ -53,9 +53,7 @@ void RegisterWindow::submitData(){
 	QString passwordR;
 
 	nomR = nomLineEdit->text();
-	qDebug() << "Nom : " << nomR;
 	prenomR = prenomLineEdit->text();
-	qDebug() << "Prenom : " << prenomR;
 	emailR = emailLineEdit->text();
 	pseudoR = pseudoLineEdit->text();
 	passwordR = passwordLineEdit->text();

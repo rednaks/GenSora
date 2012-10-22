@@ -21,7 +21,13 @@ public:
 	User();
 	friend class boost::serialization::access;
 	template<class Archive>
-	void serialize(Archive &ar, const unsigned int version);
+	void serialize(Archive &ar, const unsigned int version){
+		ar & pseudo;
+		ar & prenom;
+		ar & nom;
+		ar & password;
+		ar & email;
+	}
 	void setNom(std::string a);
 	std::string getNom();
  	void setPrenom(std::string a);

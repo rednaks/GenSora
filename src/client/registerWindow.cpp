@@ -54,11 +54,19 @@ void RegisterWindow::submitData(){
         u.setEmail(emailLineEdit->text().toStdString());
 	u.setPseudo(pseudoLineEdit->text().toStdString());
         u.setPassword(passwordLineEdit->text().toStdString());
+	// Sérialisation de u :
+	std::ostringstream oss;
+	boost::archive::text_oarchive oa(oss);
+	oa << u;
+	//
+
+	QString msg = "INSCR:"+QString(oss.str().c_str());
+	
 	 
 	QString host("localhost");
 	quint16 port(8080);
 	connection->connectToServer(host, port);
-	connection->sendMsg("INSCR:"+QString::fromStdString(u.getNom()));
+	connection->sendMsg(msg);
 
 	}
 

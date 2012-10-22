@@ -50,10 +50,3 @@ password = "";
 User::~User(){
 }
 
-template <class Archive> void User::serialize(Archive &ar, const unsigned int version){
-	ar & pseudo;
-	ar & prenom;
-	ar & nom;
-	ar & password;
-	ar & email;
-}

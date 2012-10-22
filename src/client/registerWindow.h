@@ -4,6 +4,7 @@
 #include "net.h"
 #include "user.h"
 #include <iostream>
+#include <sstream>
 
 
 class RegisterWindow: public QDialog {

@@ -5,6 +5,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QListWidget>
+#include <QTabWidget>
 
 
 class ContactWindow: public QWidget
@@ -15,7 +16,9 @@ public:
 private:
 	QPushButton *addButton;
 	QPushButton *deleteButton;
+	QTabWidget *tabs;
 	QListWidget *contactList;
+	QList<QWidget *> tabList;
 };
 #endif
 

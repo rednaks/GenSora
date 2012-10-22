@@ -14,13 +14,16 @@ ContactWindow::ContactWindow(QWidget *parent): QWidget(parent)
 	QHBoxLayout *buttonLayout = new QHBoxLayout;
 	buttonLayout->addStretch();
 	buttonLayout->addWidget(addButton);
-	buttonLayout->addStretch();
 	buttonLayout->addWidget(deleteButton);
 	buttonLayout->addStretch();
 
 
 	QVBoxLayout *mainLayout = new QVBoxLayout;
-	mainLayout->addWidget(contactList);
+	tabs = new QTabWidget;
+	tabs->setTabsClosable(true);
+	tabs->insertTab(0, contactList, "Contacts");
+	tabList << contactList;	
+	mainLayout->addWidget(tabs);
 	mainLayout->addLayout(buttonLayout);
 
 	setWindowTitle("Liste de contacts");

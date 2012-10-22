@@ -8,8 +8,9 @@ QT += sql
 TARGET = server.bin
 DEPENDPATH += .
 INCLUDEPATH += .
+LIBS += -lboost_serialization
 
 # Input
-HEADERS += server.h database.h message.h
-SOURCES += main.cpp server.cpp database.cpp message.cpp
+HEADERS += server.h database.h message.h user.h
+SOURCES += main.cpp server.cpp database.cpp message.cpp user.cpp
 

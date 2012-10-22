@@ -7,6 +7,7 @@ QT += network
 TARGET = client.bin 
 DEPENDPATH += .
 INCLUDEPATH += .
+LIBS += -lboost_serialization
 
 # Input
 HEADERS += authWindow.h registerWindow.h contactWindow.h net.h user.h discussionWidget.h

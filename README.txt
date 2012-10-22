@@ -13,7 +13,7 @@ Installer aussi les outils de compilation :
 	sudo apt-get install build-essential
 
 Installation de boost_serialization
-	sudo apt-get install libboost_serialization
+	sudo apt-get install libboost-serialization-dev
 
 
 * Compilation:

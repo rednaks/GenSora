@@ -6,8 +6,14 @@ client.bin:
 	
 
 server.bin:
-	@echo "Not yet implemented"
+	@echo "Compilation de server.bin"
+	cd src/server && qmake && make
 
 clean:
 	@echo "Nettoyage du repertoire client"
 	@cd src/client && make clean
+	@cd src/server && make clean
+
+delete: clean
+	@echo "Suppression des fichier"
+	rm src/*/*.bin src/*/Makefile

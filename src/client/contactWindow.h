@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QListWidget>
 #include <QTabWidget>
+#include "discussionWidget.h"
 
 
 class ContactWindow: public QWidget
@@ -13,6 +14,11 @@ class ContactWindow: public QWidget
 	Q_OBJECT
 public:
 	ContactWindow(QWidget *parent = 0);
+
+private slots:
+	void openNewTab(QListWidgetItem *);
+	void closeTab(int );
+
 private:
 	QPushButton *addButton;
 	QPushButton *deleteButton;

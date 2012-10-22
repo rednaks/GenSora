@@ -10,6 +10,6 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += server.h database.h
-SOURCES += main.cpp server.cpp database.cpp
+HEADERS += server.h database.h message.h
+SOURCES += main.cpp server.cpp database.cpp message.cpp
 

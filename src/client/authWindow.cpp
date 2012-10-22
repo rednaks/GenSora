@@ -43,6 +43,7 @@ AuthWindow::~AuthWindow(){
 void AuthWindow::openRegisterWindow(){
 	RegisterWindow *regWin = new RegisterWindow(this);
 	regWin->show();
+	
 }
 
 void AuthWindow::openContactWindow(){

@@ -10,6 +10,7 @@ public:
 	Net();
 	void sendMsg(QString &);
 	void connectToServer(QString &, quint16 &);
+	QAbstractSocket::SocketState state();
 
 
 private slots:

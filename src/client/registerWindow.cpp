@@ -62,7 +62,9 @@ void RegisterWindow::submitData(){
 
 	QString msg = "INSCR:"+QString(oss.str().c_str());
 	
-	 
+	if(connection->state() == QAbstractSocket::ConnectedState)
+		return;
+ 
 	QString host("localhost");
 	quint16 port(8080);
 	connection->connectToServer(host, port);

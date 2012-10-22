@@ -37,6 +37,7 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	formLayout->addRow(pseudoLabel, pseudoLineEdit);
 	formLayout->addRow(passwordLabel, passwordLineEdit);
 	formLayout->addRow(submitButton, cancelButton);
+	connection = new Net;
 	
 	setLayout(formLayout);
 	
@@ -58,6 +59,12 @@ void RegisterWindow::submitData(){
 	emailR = emailLineEdit->text();
 	pseudoR = pseudoLineEdit->text();
 	passwordR = passwordLineEdit->text();
+	/* TODO : 
+	QString host("localhost");
+	quint16 port(8080);
+	connection->connectToServer(host, port)
+	connection->sendMsg("INSCR:"+ ...);
+	*/
 }
 
 

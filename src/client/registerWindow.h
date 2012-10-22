@@ -1,6 +1,7 @@
 #ifndef REGISTER_WINDOW_H
 #define REGISTER_WINDOW_H
 #include <QtGui>
+#include "net.h"
 
 class RegisterWindow: public QDialog {
 	Q_OBJECT
@@ -30,6 +31,9 @@ private:
 	/*Les buttons */
 	QPushButton *submitButton;
 	QPushButton *cancelButton;
+	
+	/*La connection */
+	Net *connection;
 
 	void openRegisterWindow();
 	

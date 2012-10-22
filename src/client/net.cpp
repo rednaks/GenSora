@@ -25,7 +25,7 @@ void Net::receivedData(){
 
 // Les Méthodes : 
 
-void Net::sendMsg(QString &msg){
+void Net::sendMsg(const QString msg){
 	QByteArray packet;
 	QDataStream out(&packet, QIODevice::WriteOnly);
 	out << (quint16) 0;

@@ -8,6 +8,9 @@ class RegisterWindow: public QDialog {
 public: 
 	RegisterWindow(QWidget *parent = 0);
 	~RegisterWindow();
+private slots:
+	 void submitData();
+
 
 private:
 	/*Les Labels */
@@ -27,5 +30,8 @@ private:
 	/*Les buttons */
 	QPushButton *submitButton;
 	QPushButton *cancelButton;
+
+	void openRegisterWindow();
+	
 };
 #endif

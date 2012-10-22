@@ -27,6 +27,7 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 
 
 	submitButton = new QPushButton("Envoyer");
+	connect(submitButton, SIGNAL(clicked()), this, SLOT(submitData()));
 	cancelButton = new QPushButton("Annuler");
 
 	QFormLayout *formLayout = new QFormLayout;
@@ -40,6 +41,25 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	setLayout(formLayout);
 	
 }
+
+
+void RegisterWindow::submitData(){
+
+	QString nomR;
+	QString prenomR;
+	QString emailR;
+	QString pseudoR;
+	QString passwordR;
+
+	nomR = nomLineEdit->text();
+	qDebug() << "Nom : " << nomR;
+	prenomR = prenomLineEdit->text();
+	qDebug() << "Prenom : " << prenomR;
+	emailR = emailLineEdit->text();
+	pseudoR = pseudoLineEdit->text();
+	passwordR = passwordLineEdit->text();
+}
+
 
 RegisterWindow::~RegisterWindow() {
 

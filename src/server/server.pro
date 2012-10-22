@@ -4,10 +4,12 @@
 
 TEMPLATE = app
 QT += network
+QT += sql
 TARGET = server.bin
 DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += server.h
-SOURCES += main.cpp server.cpp
+HEADERS += server.h database.h
+SOURCES += main.cpp server.cpp database.cpp
+

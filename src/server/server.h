@@ -2,6 +2,7 @@
 #define SERVER_H
 #include <QtNetwork>
 #include <iostream>
+#include "database.h"
 
 class Server: public QObject {
 	Q_OBJECT

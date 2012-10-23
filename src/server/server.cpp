@@ -20,6 +20,7 @@ Server::Server(){
 void Server::newConnectionSlot() {
 	QTcpSocket *client = server->nextPendingConnection();
 	clients << client;
+	std::cout << "Nouvelle connection" << std::endl;
 	
 	connect(client, SIGNAL(readyRead()), this, SLOT(receivedData()));
 	connect(client, SIGNAL(disconnected()), this, SLOT(disconnectedClient()));
@@ -88,5 +89,13 @@ void Server::traitMsg(const QString &msg){
 		q = "INSERT INTO Users(Id, pseudo, nom, prenom, email, mdp, etat) VALUES('', '"+u.getPseudo()+"', '"+u.getNom()+"', '"+u.getPrenom()+"', '"+u.getEmail()+"', '"+u.getPassword()+"', '1');";
 		db.setQuery(QString(q.c_str()));
 		db.exec();
+	}
+	else if(m.getType() == AUTH){
+		User u;
+		iss = new std::istringstream(m.getContent().toStdString(), std::istringstream::in);
+		boost::archive::text_iarchive ia(*iss);
+		ia >> u;
+		QString msg("OK FROM SErVer");
+		sendMsg(msg, clients[0]);
 	}
 } 

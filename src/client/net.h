@@ -2,6 +2,7 @@
 #define NET_H
 #include <QtNetwork>
 #include <iostream>
+#include "message.h"
 
 class Net: public QObject {
 	Q_OBJECT
@@ -17,7 +18,8 @@ private slots:
 	void connectedSlot();
 	void disconnectedSlot();
 	void receivedData();
-	
+signals:
+	void receivedDataSignal();	
 
 private:
 	QTcpSocket *client;

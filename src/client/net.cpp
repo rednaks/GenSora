@@ -21,6 +21,7 @@ void Net::disconnectedSlot(){
 
 void Net::receivedData(){
 	std::cout << "Donnée reçus " << std::endl;
+	emit receivedDataSignal();
 }
 
 // Les Méthodes : 

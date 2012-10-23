@@ -3,6 +3,8 @@
 #include <QtGui>
 #include "registerWindow.h"
 #include "contactWindow.h"
+#include "net.h"
+#include "user.h"
 
 class AuthWindow: public QMainWindow {
 	Q_OBJECT
@@ -14,6 +16,7 @@ public:
 private slots:
 	void openRegisterWindow();
 	void openContactWindow();
+	void receivedDataSlot();
 
 private:
 	QLabel *pseudoLabel;
@@ -24,6 +27,7 @@ private:
 	QPushButton *registerButton;
 	QLabel *logoLabel;
 	QLabel *infoLabel;
+	Net *connection;
 
 };
 #endif

@@ -29,6 +29,7 @@ AuthWindow::AuthWindow(){
 	mainWidget->setLayout(mainLayout);
 
 	setCentralWidget(mainWidget);
+	connection = new Net;
 }
 
 AuthWindow::~AuthWindow(){
@@ -41,13 +42,38 @@ AuthWindow::~AuthWindow(){
 	delete registerButton;
 }
 void AuthWindow::openRegisterWindow(){
+	
 	RegisterWindow *regWin = new RegisterWindow(this);
 	regWin->show();
 	
 }
 
 void AuthWindow::openContactWindow(){
+	User u;
+	u.setPseudo(pseudoLineEdit->text().toStdString());
+	u.setPassword(passwordLineEdit->text().toStdString());	
+	// Sérialisation : 
+		std::ostringstream oss;
+		boost::archive::text_oarchive oa(oss);
+		oa << u;
+	//
+
+	QString msg = "AUTH:"+QString(oss.str().c_str());
+	if(connection->state() == QAbstractSocket::ConnectedState)
+		return;
+
+	connect(connection, SIGNAL(receivedDataSignal()), this, SLOT(receivedDataSlot()));	
+	QString host("localhost");
+	quint16 port(8080);
+	connection->connectToServer(host, port);
+	connection->sendMsg(msg);
+
 	ContactWindow *conWin = new ContactWindow();
 	conWin->show();
 	//this->hide(); TODO
+}
+
+void AuthWindow::receivedDataSlot(){
+
+	std::cout << "Donnée reçu dans AutWindow " << std::cout;
 }

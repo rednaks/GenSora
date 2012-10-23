@@ -95,7 +95,12 @@ void Server::traitMsg(const QString &msg){
 		iss = new std::istringstream(m.getContent().toStdString(), std::istringstream::in);
 		boost::archive::text_iarchive ia(*iss);
 		ia >> u;
-		QString msg("OK FROM SErVer");
+                std::string q("SELECT pseudo,mdp from Users WHERE pseudo='"+u.getPseudo()+"' AND mdp='"+u.getPassword()+"';");
+		db.setQuery(QString(q.c_str()));
+		int rep=db.exec(1);
+		std::ostringstream oss;
+		oss << rep;
+		QString msg(QString::fromStdString("AUTH:"+oss.str()));
 		sendMsg(msg, clients[0]);
 	}
 } 

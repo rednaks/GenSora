@@ -14,7 +14,28 @@ DataBase::DataBase(QString req){
 void DataBase::setQuery(const QString q){
 	request = q;
 }
-
+int DataBase::exec(int i)
+{
+	if(db.open())
+	{
+	QSqlQuery q;
+	std::cout << "DEBUG: in function DataBase::exec(int),db Opened !" << std::endl;
+                std::cout << "DEBUG : in function DataBase::exec(int) request : " << request.toStdString() << std::endl;
+               if ( q.exec(request)){
+			if( q.next())
+				return 1;
+			else
+				return 0;
+	// cette valeur doit renvoyer normalement 1 ou 0 puisque le pseudo il est unique 
+		}		
+		else {
+			std::cout << " Erreur execution requete!! " << std::endl;
+		}
+                db.close();
+	
+}
+	
+}
 void DataBase::exec()
 {
 	if(db.open())

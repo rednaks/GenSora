@@ -10,6 +10,7 @@ public:
 	DataBase(QString = " ");	
 	void setQuery(const QString);
 	void exec();
+	int exec(int);
 
 private:
 	QSqlDatabase db;

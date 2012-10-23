@@ -62,7 +62,7 @@ void AuthWindow::openContactWindow(){
 	if(connection->state() == QAbstractSocket::ConnectedState)
 		return;
 
-	connect(connection, SIGNAL(receivedDataSignal()), this, SLOT(receivedDataSlot()));	
+	connect(connection, SIGNAL(receivedDataSignal(const QString &)), this, SLOT(receivedDataSlot(const QString &)));	
 	QString host("localhost");
 	quint16 port(8080);
 	connection->connectToServer(host, port);
@@ -73,7 +73,17 @@ void AuthWindow::openContactWindow(){
 	//this->hide(); TODO
 }
 
-void AuthWindow::receivedDataSlot(){
+void AuthWindow::receivedDataSlot(const QString &msg){
 
-	std::cout << "Donnée reçu dans AutWindow " << std::cout;
+	std::cout << "Donnée reçu dans AutWindow :" << msg.toStdString() << std::endl;
+	Message m(msg);
+	if(m.getType() == ERRO)
+		return;
+	
+	if(m.getType() == AUTH){
+		if(m.getContent()=="1")
+			QMessageBox::information(this, "Bienvenu !", "Vous avez été authentifié avec succès");
+		else if(m.getContent() == "0")
+			QMessageBox::warning(this, "Erreur !", "Le pseudo ou le mot de passe sont incorrecte");
+	}
 }

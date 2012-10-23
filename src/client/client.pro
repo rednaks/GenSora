@@ -10,5 +10,5 @@ INCLUDEPATH += .
 LIBS += -lboost_serialization
 
 # Input
-HEADERS += authWindow.h registerWindow.h contactWindow.h net.h user.h discussionWidget.h
-SOURCES += authWindow.cpp registerWindow.cpp main.cpp contactWindow.cpp net.cpp user.cpp discussionWidget.cpp
+HEADERS += authWindow.h registerWindow.h contactWindow.h net.h user.h discussionWidget.h message.h
+SOURCES += authWindow.cpp registerWindow.cpp main.cpp contactWindow.cpp net.cpp user.cpp discussionWidget.cpp message.cpp

@@ -19,7 +19,7 @@ private slots:
 	void disconnectedSlot();
 	void receivedData();
 signals:
-	void receivedDataSignal();	
+	void receivedDataSignal(const QString &);	
 
 private:
 	QTcpSocket *client;

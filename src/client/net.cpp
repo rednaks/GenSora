@@ -21,7 +21,21 @@ void Net::disconnectedSlot(){
 
 void Net::receivedData(){
 	std::cout << "Donnée reçus " << std::endl;
-	emit receivedDataSignal();
+	QTcpSocket *sock = qobject_cast<QTcpSocket *> (sender());
+	if(sock == 0)
+		return;
+	QDataStream in(sock);
+	if(mSize == 0){
+		
+		if(sock->bytesAvailable() < (int) sizeof(quint16))
+			return;
+		in >> mSize;
+	}
+	if(sock->bytesAvailable() < mSize)
+		return;
+	QString msg;
+	in >> msg;
+	emit receivedDataSignal(msg);
 }
 
 // Les Méthodes : 

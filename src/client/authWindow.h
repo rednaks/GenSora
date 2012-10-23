@@ -16,7 +16,7 @@ public:
 private slots:
 	void openRegisterWindow();
 	void openContactWindow();
-	void receivedDataSlot();
+	void receivedDataSlot(const QString &);
 
 private:
 	QLabel *pseudoLabel;

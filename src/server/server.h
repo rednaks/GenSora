@@ -4,6 +4,7 @@
 #include <iostream>
 #include "database.h"
 #include "message.h"
+#include "user.h"
 
 class Server: public QObject {
 	Q_OBJECT

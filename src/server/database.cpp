@@ -11,6 +11,10 @@ DataBase::DataBase(QString req){
 }
 
 
+void DataBase::setQuery(const QString q){
+	request = q;
+}
+
 void DataBase::exec()
 {
 	if(db.open())

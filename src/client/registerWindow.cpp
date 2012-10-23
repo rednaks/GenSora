@@ -60,7 +60,7 @@ void RegisterWindow::submitData(){
 	oa << u;
 	//
 
-	QString msg = "INSCR:"+QString(oss.str().c_str());
+	QString msg = "INSC:"+QString(oss.str().c_str());
 	
 	if(connection->state() == QAbstractSocket::ConnectedState)
 		return;

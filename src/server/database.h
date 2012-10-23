@@ -7,7 +7,8 @@
 class DataBase
 {
 public:
-	DataBase(QString);	
+	DataBase(QString = " ");	
+	void setQuery(const QString);
 	void exec();
 
 private:

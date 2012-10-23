@@ -1,6 +1,8 @@
 #ifndef USER_H
 #define USER_H
+#include <iostream>
 #include <string>
+#include <sstream>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
 

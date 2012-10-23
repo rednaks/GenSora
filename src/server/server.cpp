@@ -71,5 +71,22 @@ void Server::sendMsg(const QString &msg, QTcpSocket *client){
 void Server::traitMsg(const QString &msg){
 
 	//TODO : traitement du message.
+	Message m(msg);
+	
 	std::cout << "DEBUG : Msg à traiter : " << msg.toStdString() << std::endl;
+	if(m.getType() == ERRO)
+		return;
+	
+	DataBase db;
+	std::istringstream *iss;
+	if(m.getType() == INSC){
+		User u;
+		std::string q;
+		iss = new std::istringstream(m.getContent().toStdString(), std::istringstream::in);
+		boost::archive::text_iarchive ia(*iss);
+		ia >> u;
+		q = "INSERT INTO Users(Id, pseudo, nom, prenom, email, mdp, etat) VALUES('', '"+u.getPseudo()+"', '"+u.getNom()+"', '"+u.getPrenom()+"', '"+u.getEmail()+"', '"+u.getPassword()+"', '1');";
+		db.setQuery(QString(q.c_str()));
+		db.exec();
+	}
 } 

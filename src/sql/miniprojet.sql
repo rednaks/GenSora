@@ -1,6 +1,6 @@
 create database MiniProjetCpp;
 use MiniProjetCpp;
-create table Users(Id int auto_increment, nom varchar(255) NOT NULL, prenom varchar(255) NOT NULL, email varchar(255) NOT NULL, mdp varchar(32) NOT NULL, pseudo varchar(50) NOT NULL, etat ENUM('0','1','2'), PRIMARY KEY(Id,pseudo));
+create table Users(Id int auto_increment, nom varchar(255) NOT NULL, prenom varchar(255) NOT NULL, email varchar(255) NOT NULL, mdp varchar(32) NOT NULL, pseudo varchar(50) UNIQUE, etat ENUM('0','1','2'), PRIMARY KEY(Id,pseudo));
 
 create table Friends(Id int auto_increment , user_id int , friend_id int , etat ENUM('0','1','2') , PRIMARY KEY(Id) , FOREIGN KEY(user_id)REFERENCES Users(Id), FOREIGN KEY(friend_id)REFERENCES Users(Id));
 

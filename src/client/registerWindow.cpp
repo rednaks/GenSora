@@ -69,7 +69,7 @@ void RegisterWindow::submitData(){
 	quint16 port(8080);
 	connection->connectToServer(host, port);
 	connection->sendMsg(msg);
-
+	this->hide();
 	}
 
 

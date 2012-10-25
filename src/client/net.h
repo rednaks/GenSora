@@ -13,6 +13,7 @@ public:
 	void connectToServer(QString &, quint16 &);
 	void disconnectFromServer();
 	QAbstractSocket::SocketState state();
+	bool waitForConnected(int);
 
 
 private slots:

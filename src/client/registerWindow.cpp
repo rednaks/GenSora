@@ -69,7 +69,12 @@ void RegisterWindow::submitData(){
 	QString host("localhost");
 	quint16 port(8080);
 	connection->connectToServer(host, port);
-	connection->sendMsg(msg);
+	if(connection->waitForConnected(1000))
+		connection->sendMsg(msg);
+	else {
+		QMessageBox::warning(this, "Erreur", QString::fromUtf8("Impossible de sonnecter au serveur.\nVérifiez votre connexion internet"));
+		delete connection;
+	}
 
 }
 

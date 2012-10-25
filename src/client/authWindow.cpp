@@ -66,7 +66,13 @@ void AuthWindow::openContactWindow(){
 	QString host("localhost");
 	quint16 port(8080);
 	connection->connectToServer(host, port);
-	connection->sendMsg(msg);
+	std::cout << "STATE : " << connection->state() << std::endl;
+	if(connection->waitForConnected(1000))
+			connection->sendMsg(msg);
+	else{
+		QMessageBox::warning(this, "Erreur !", QString::fromUtf8("Impossible de se connecter au serveur.\nVérifier votre connexion internet"));
+		delete connection;
+	}
 
 }
 

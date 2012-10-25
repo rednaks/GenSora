@@ -64,3 +64,6 @@ void Net::connectToServer(QString &host, quint16 &port){
 void Net::disconnectFromServer(){
 	client->disconnectFromHost();
 }
+bool Net::waitForConnected(int ms){
+	return client->waitForConnected(ms);
+}

@@ -16,6 +16,7 @@ public:
 	~RegisterWindow();
 private slots:
 	void submitData();
+	void verifData();
 	void subscriptionResponse(const QString &);
 
 
@@ -26,6 +27,7 @@ private:
 	QLabel *emailLabel;
 	QLabel *pseudoLabel;
 	QLabel *passwordLabel;
+	QLabel *passwordVLabel;
 
 	/*Les Inputs */
 	QLineEdit *nomLineEdit;
@@ -33,6 +35,7 @@ private:
 	QLineEdit *emailLineEdit;
 	QLineEdit *pseudoLineEdit;
 	QLineEdit *passwordLineEdit;
+	QLineEdit *passwordVLineEdit;
 
 	/*Les buttons */
 	QPushButton *submitButton;

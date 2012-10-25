@@ -7,6 +7,7 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	emailLabel = new QLabel("Email");
 	pseudoLabel = new QLabel("Pseudo");
 	passwordLabel = new QLabel("Mot de passe");
+	passwordVLabel = new QLabel("Verification du mot de passe");
 	
 	nomLineEdit = new QLineEdit;
 	nomLineEdit->setMaxLength(255);
@@ -24,10 +25,14 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	passwordLineEdit = new QLineEdit;
 	passwordLineEdit->setEchoMode(QLineEdit::Password);
 	passwordLineEdit->setMaxLength(255);
+	passwordVLineEdit = new QLineEdit;
+        passwordVLineEdit->setEchoMode(QLineEdit::Password);
+        passwordVLineEdit->setMaxLength(255);
+
 
 
 	submitButton = new QPushButton("Envoyer");
-	connect(submitButton, SIGNAL(clicked()), this, SLOT(submitData()));
+	connect(submitButton, SIGNAL(clicked()), this, SLOT(verifData()));
 	cancelButton = new QPushButton("Annuler");
 
 	QFormLayout *formLayout = new QFormLayout;
@@ -36,6 +41,7 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	formLayout->addRow(emailLabel, emailLineEdit);
 	formLayout->addRow(pseudoLabel, pseudoLineEdit);
 	formLayout->addRow(passwordLabel, passwordLineEdit);
+	formLayout->addRow(passwordVLabel, passwordVLineEdit);
 	formLayout->addRow(submitButton, cancelButton);
 	//connection = new Net;
 	
@@ -43,6 +49,14 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	
 }
 
+void RegisterWindow::verifData(){
+if((passwordLineEdit->text() == passwordVLineEdit->text()) && (nomLineEdit->text().toStdString()!= "") && (prenomLineEdit->text().toStdString()!= "") && (emailLineEdit->text().toStdString() != "") && (pseudoLineEdit->text().toStdString() != "") && (passwordLineEdit->text().toStdString() != "" ))
+	submitData();
+else
+QMessageBox::warning(this, "Erreur !", "Champs vide ou mot de passe incorherent"); 
+
+
+}
 
 void RegisterWindow::submitData(){
 

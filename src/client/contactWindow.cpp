@@ -25,7 +25,8 @@ ContactWindow::ContactWindow(QWidget *parent): QWidget(parent)
 	tabs = new QTabWidget;
 	tabs->setTabsClosable(true);
 	tabs->insertTab(0, contactList, "Contacts");
-	tabList << contactList;	
+	tabList.insert("Contacts", contactList);	
+	widgetIndex.insert(0, contactList);
 	connect(tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
 	
 
@@ -40,15 +41,17 @@ ContactWindow::ContactWindow(QWidget *parent): QWidget(parent)
 // Les Slots :
 void ContactWindow::openNewTab(QListWidgetItem *item){
 	DiscussionWidget *discWid = new DiscussionWidget;
-	if(tabList.contains(discWid))
+	if(tabList.contains(item->text()))
 		return;
-	tabList << discWid;
-	tabs->insertTab(tabList.indexOf(discWid), discWid, item->text());
+	tabList.insert(item->text(),discWid);
+	widgetIndex.insert(widgetIndex.end().key(),discWid);
+	tabs->insertTab(widgetIndex.key(discWid)+1, discWid, item->text());
 	
 }
 void ContactWindow::closeTab(int index){
 	if(index == 0)
 		return ;
-	tabList.removeOne(tabs->widget(index));
+	tabList.remove(tabList.key(tabs->widget(index)));
+	widgetIndex.remove(index);
 	tabs->removeTab(index);
 }	

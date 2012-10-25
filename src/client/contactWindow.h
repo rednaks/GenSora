@@ -24,7 +24,8 @@ private:
 	QPushButton *deleteButton;
 	QTabWidget *tabs;
 	QListWidget *contactList;
-	QList<QWidget *> tabList;
+	QMap<int , QWidget *> widgetIndex;
+	QMap<QString, QWidget *> tabList;
 };
 #endif
 

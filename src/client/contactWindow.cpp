@@ -41,8 +41,10 @@ ContactWindow::ContactWindow(QWidget *parent): QWidget(parent)
 // Les Slots :
 void ContactWindow::openNewTab(QListWidgetItem *item){
 	DiscussionWidget *discWid = new DiscussionWidget;
-	if(tabList.contains(item->text()))
+	if(tabList.contains(item->text())){
+		tabs->setCurrentWidget(tabList.value(item->text()));
 		return;
+	}
 	tabList.insert(item->text(),discWid);
 	widgetIndex.insert(widgetIndex.end().key(),discWid);
 	tabs->insertTab(widgetIndex.key(discWid)+1, discWid, item->text());

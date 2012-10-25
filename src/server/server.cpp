@@ -43,7 +43,7 @@ void Server::receivedData(){
 
 	QString msg;
 	in >> msg; // Enfin si tout s'est bien passé, on récupère le message
-	traitMsg(msg);
+	traitMsg(msg, sock);
 	mSize = 0;
 }
 
@@ -72,7 +72,7 @@ void Server::sendMsg(const QString &msg, QTcpSocket *client){
 	client->write(packet);
 }
 
-void Server::traitMsg(const QString &msg){
+void Server::traitMsg(const QString &msg, QTcpSocket *sock){
 
 	//TODO : traitement du message.
 	Message m(msg);
@@ -115,6 +115,6 @@ void Server::traitMsg(const QString &msg){
 		std::ostringstream oss;
 		oss << rep;
 		QString msg(QString::fromStdString("AUTH:"+oss.str()));
-		sendMsg(msg, clients[0]);
+		sendMsg(msg, sock);
 	}
 } 

@@ -24,6 +24,6 @@ private:
 	quint16 mSize;
 	
 	void sendMsg(const QString &, QTcpSocket *);
-	void traitMsg(const QString &);
+	void traitMsg(const QString &, QTcpSocket *);
 };
 #endif

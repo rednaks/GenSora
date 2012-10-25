@@ -5,7 +5,7 @@ User::User(std::string n, std::string pr, std::string e, std::string ps, std::st
 	prenom = pr;
 	email = e;
 	pseudo = ps;
-	password = pass;
+	password = ((QString)QCryptographicHash::hash(pass.c_str(),QCryptographicHash::Md5).toHex()).toStdString();
 
 }
 User::User(){
@@ -42,7 +42,7 @@ password = "";
 	return pseudo;
 }
         void User::setPassword(std::string a){
-	password = a;
+	password = ((QString)QCryptographicHash::hash(a.c_str(), QCryptographicHash::Md5).toHex()).toStdString();
 }
         std::string User::getPassword(){
 	return password;

@@ -1,6 +1,9 @@
 #ifndef USER_H
 #define USER_H
 #include <string>
+#include <QString>
+#include <QCryptographicHash>
+#include <QByteArray>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
 

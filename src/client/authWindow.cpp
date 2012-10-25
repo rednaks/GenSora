@@ -29,7 +29,6 @@ AuthWindow::AuthWindow(){
 	mainWidget->setLayout(mainLayout);
 
 	setCentralWidget(mainWidget);
-	connection = new Net;
 }
 
 AuthWindow::~AuthWindow(){
@@ -59,6 +58,7 @@ void AuthWindow::openContactWindow(){
 	//
 
 	QString msg = "AUTH:"+QString(oss.str().c_str());
+	connection = new Net;
 	if(connection->state() == QAbstractSocket::ConnectedState)
 		return;
 
@@ -68,22 +68,29 @@ void AuthWindow::openContactWindow(){
 	connection->connectToServer(host, port);
 	connection->sendMsg(msg);
 
-	ContactWindow *conWin = new ContactWindow();
-	conWin->show();
-	//this->hide(); TODO
 }
 
 void AuthWindow::receivedDataSlot(const QString &msg){
 
 	std::cout << "Donnée reçu dans AutWindow :" << msg.toStdString() << std::endl;
 	Message m(msg);
-	if(m.getType() == ERRO)
+	if(m.getType() == ERRO){
+		connection->disconnectFromServer();
+		delete connection;
 		return;
+	}
 	
 	if(m.getType() == AUTH){
-		if(m.getContent()=="1")
-			QMessageBox::information(this, "Bienvenu !", "Vous avez été authentifié avec succès");
-		else if(m.getContent() == "0")
+		if(m.getContent()=="1"){
+			QMessageBox::information(this, "Bienvenu !", QString::fromUtf8("Vous avez été authentifié avec succès"));
+			 ContactWindow *conWin = new ContactWindow();
+        		 conWin->show();
+			 //this->hide();
+		}
+		else if(m.getContent() == "0"){
 			QMessageBox::warning(this, "Erreur !", "Le pseudo ou le mot de passe sont incorrecte");
+			connection->disconnectFromServer();
+			delete connection;
+		}
 	}
 }

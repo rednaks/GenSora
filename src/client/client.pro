@@ -5,6 +5,7 @@
 TEMPLATE = app
 QT += network
 TARGET = client.bin 
+CONFIG += debug
 DEPENDPATH += .
 INCLUDEPATH += .
 LIBS += -lboost_serialization

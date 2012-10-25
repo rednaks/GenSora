@@ -3,6 +3,7 @@
 #include <QtGui>
 #include "net.h"
 #include "user.h"
+#include "message.h"
 #include <iostream>
 #include <sstream>
 
@@ -14,7 +15,8 @@ public:
 	RegisterWindow(QWidget *parent = 0);
 	~RegisterWindow();
 private slots:
-	 void submitData();
+	void submitData();
+	void subscriptionResponse(const QString &);
 
 
 private:

@@ -35,6 +35,7 @@ void Net::receivedData(){
 		return;
 	QString msg;
 	in >> msg;
+	std::cout << msg.toStdString() << std::endl;
 	emit receivedDataSignal(msg);
 }
 
@@ -58,4 +59,8 @@ void Net::connectToServer(QString &host, quint16 &port){
 
 	client->abort();
 	client->connectToHost(host, port);
+}
+
+void Net::disconnectFromServer(){
+	client->disconnectFromHost();
 }

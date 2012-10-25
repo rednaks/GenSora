@@ -49,11 +49,14 @@ void Server::receivedData(){
 
 
 void Server::disconnectedClient(){
+	std::cout << "DEBug : dans le slot : disconnectedClient()" << std::endl;
 	QTcpSocket *sock = qobject_cast<QTcpSocket *> (sender());
-	if(sock == 0)
-		return;
-	if(clients.contains(sock))
+	/*if(sock == 0)
+		return;*/
+	if(clients.contains(sock)){
+		std::cout << "Un client s'est déconnecté" << std::endl;
 		clients.removeOne(sock);
+	}
 	sock->deleteLater();
 }
 
@@ -86,9 +89,20 @@ void Server::traitMsg(const QString &msg){
 		iss = new std::istringstream(m.getContent().toStdString(), std::istringstream::in);
 		boost::archive::text_iarchive ia(*iss);
 		ia >> u;
-		q = "INSERT INTO Users(Id, pseudo, nom, prenom, email, mdp, etat) VALUES('', '"+u.getPseudo()+"', '"+u.getNom()+"', '"+u.getPrenom()+"', '"+u.getEmail()+"', '"+u.getPassword()+"', '1');";
+		// Vérification si les donnée existe dans la base :
+		q = "SELECT * FROM Users where pseudo = '"+u.getPseudo()+"' AND email='"+u.getEmail()+"';";
 		db.setQuery(QString(q.c_str()));
-		db.exec();
+		int resp = db.exec(1);
+		if(resp == 0){ // Tout va bien, l'utilisateur n'existe pas, on l'inscrit dans la base.
+			q = "INSERT INTO Users(Id, pseudo, nom, prenom, email, mdp, etat) VALUES('', '"+u.getPseudo()+"', '"+u.getNom()+"', '"+u.getPrenom()+"', '"+u.getEmail()+"', '"+u.getPassword()+"', '1');";
+			db.setQuery(QString(q.c_str()));
+			db.exec();
+		}
+		std::cout << "Envoi de la réponse d'inscription" << std::endl;
+		std::ostringstream oss;
+		oss << resp;
+		QString msg(QString::fromStdString("INSC:"+oss.str()));
+		sendMsg(msg,clients[0]);
 	}
 	else if(m.getType() == AUTH){
 		User u;

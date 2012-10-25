@@ -37,7 +37,7 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	formLayout->addRow(pseudoLabel, pseudoLineEdit);
 	formLayout->addRow(passwordLabel, passwordLineEdit);
 	formLayout->addRow(submitButton, cancelButton);
-	connection = new Net;
+	//connection = new Net;
 	
 	setLayout(formLayout);
 	
@@ -59,7 +59,8 @@ void RegisterWindow::submitData(){
 	boost::archive::text_oarchive oa(oss);
 	oa << u;
 	//
-
+	connection = new Net;
+	connect(connection, SIGNAL(receivedDataSignal(const QString &)), this, SLOT(subscriptionResponse(const QString &)));
 	QString msg = "INSC:"+QString(oss.str().c_str());
 	
 	if(connection->state() == QAbstractSocket::ConnectedState)
@@ -69,9 +70,30 @@ void RegisterWindow::submitData(){
 	quint16 port(8080);
 	connection->connectToServer(host, port);
 	connection->sendMsg(msg);
-	this->hide();
+
+}
+
+
+void RegisterWindow::subscriptionResponse(const QString &r){
+	std::cout << "Réponse de l'inscription depuis le serveur" << std::endl;
+	Message m(r);
+	std::cout << m.getType() << ":" << m.getContent().toStdString() << std::endl;
+	if(m.getType()== ERRO){
+		connection->disconnectFromServer();
+		return; 
 	}
 
+	if(m.getType() == INSC){
+		if(m.getContent() == "0")
+			QMessageBox::information(this, "Bienvenu !",QString::fromUtf8("Vous avez été inscrit avec succès"));
+		else if(m.getContent() == "1"){
+			QMessageBox::warning(this, "Erreur !", QString::fromUtf8("Pseuo ou addresse email existant"));
+		}
+	}
+	
+	connection->disconnectFromServer();
+	delete connection;
+}
 
 RegisterWindow::~RegisterWindow() {
 

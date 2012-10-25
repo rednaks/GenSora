@@ -8,6 +8,7 @@ QT += sql
 TARGET = server.bin
 DEPENDPATH += .
 INCLUDEPATH += .
+CONFIG += console debug
 LIBS += -lboost_serialization
 
 # Input

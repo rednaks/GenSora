@@ -9,6 +9,7 @@ class Net: public QObject {
 
 public:
 	Net();
+	Net(Net &);
 	void sendMsg(const QString );
 	void connectToServer(QString &, quint16 &);
 	void disconnectFromServer();

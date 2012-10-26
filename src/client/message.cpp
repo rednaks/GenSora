@@ -14,6 +14,8 @@ int Message::getType() {
 		type = 1;
 	else if(header == QString("GETF"))
 		type = 2;
+	else if(header == QString("ADDF"))
+		type = 3;
 	else
 		type = -1;
 

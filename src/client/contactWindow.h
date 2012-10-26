@@ -7,9 +7,11 @@
 #include <QListWidget>
 #include <QTabWidget>
 #include "discussionWidget.h"
+#include "addContactWindow.h"
+#include "authWindow.h"
 
 
-class ContactWindow: public QWidget
+class ContactWindow: public QDialog
 {
 	Q_OBJECT
 public:
@@ -18,6 +20,12 @@ public:
 private slots:
 	void openNewTab(QListWidgetItem *);
 	void closeTab(int );
+	void openAddContactWindow();
+	void receivedData(const QString &);
+
+signals:
+	void conReceivedDataSignal(const QString &);
+	void fwdAddFriendRequest(const QString &);
 
 private:
 	QPushButton *addButton;

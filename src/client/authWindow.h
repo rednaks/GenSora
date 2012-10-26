@@ -17,6 +17,10 @@ private slots:
 	void openRegisterWindow();
 	void openContactWindow();
 	void receivedDataSlot(const QString &);
+	void sendAddFriendRequest(const QString &);
+
+signals:
+	void pRDS(const QString &);
 
 private:
 	QLabel *pseudoLabel;

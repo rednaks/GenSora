@@ -1,13 +1,14 @@
 #include "contactWindow.h"
-
-ContactWindow::ContactWindow(QWidget *parent): QWidget(parent)
+#include "authWindow.h"
+ContactWindow::ContactWindow(QWidget *parent): QDialog(parent)
 {
+	connect(parentWidget(), SIGNAL(pRDS(const QString &)), this, SLOT(receivedData(const QString &)));
 	contactList = new QListWidget();
 	addButton = new QPushButton("Ajouter");
 	addButton->setIcon(QIcon("resources/contactIcons/user_add.png"));
+	connect(addButton, SIGNAL(clicked()), this, SLOT(openAddContactWindow()));
 	deleteButton = new QPushButton("Supprimer");
 	deleteButton->setIcon(QIcon("resources/contactIcons/user_remove.png"));
-	
 	contactList->addItem("SouGoy");
 	contactList->addItem("rmh");
 	contactList->addItem("skan BM");
@@ -57,3 +58,16 @@ void ContactWindow::closeTab(int index){
 	widgetIndex.remove(index);
 	tabs->removeTab(index);
 }	
+
+void ContactWindow::openAddContactWindow(){
+
+	AddContactWindow *aw = new AddContactWindow(this);
+	connect(aw, SIGNAL(addFriendRequest(const QString &)), this, SIGNAL(fwdAddFriendRequest(const QString &)));
+	aw->show();
+}
+
+void ContactWindow::receivedData(const QString &msg){
+
+	std::cout << "Received data from parent : " << msg.toStdString() << std::endl;
+	emit conReceivedDataSignal(msg);
+}

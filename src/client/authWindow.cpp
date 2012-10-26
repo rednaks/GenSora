@@ -81,17 +81,19 @@ void AuthWindow::receivedDataSlot(const QString &msg){
 	std::cout << "Donnée reçu dans AutWindow :" << msg.toStdString() << std::endl;
 	Message m(msg);
 	if(m.getType() == ERRO){
-		connection->disconnectFromServer();
-		delete connection;
+		std::cout << "ERRO TYPE " << std::endl;
+//		connection->disconnectFromServer();
+//		delete connection;
 		return;
 	}
 	
 	if(m.getType() == AUTH){
 		if(m.getContent()=="1"){
 			QMessageBox::information(this, "Bienvenu !", QString::fromUtf8("Vous avez été authentifié avec succès"));
-			 ContactWindow *conWin = new ContactWindow();
-        		 conWin->show();
-			 //this->hide();
+			ContactWindow *conWin = new ContactWindow(this);
+			connect(conWin, SIGNAL(fwdAddFriendRequest(const QString &)), this, SLOT(sendAddFriendRequest(const QString &)));
+        		//this->hide(); 
+			conWin->show();
 		}
 		else if(m.getContent() == "0"){
 			QMessageBox::warning(this, "Erreur !", "Le pseudo ou le mot de passe sont incorrecte");
@@ -99,4 +101,15 @@ void AuthWindow::receivedDataSlot(const QString &msg){
 			delete connection;
 		}
 	}
+
+	if(m.getType() == ADDF)
+		emit pRDS(msg);
 }
+
+void AuthWindow::sendAddFriendRequest(const QString &msg){
+
+	connection->sendMsg(msg);
+}
+
+
+

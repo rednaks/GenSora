@@ -9,6 +9,14 @@ Net::Net(){
 
 }
 
+Net::Net(Net &n){
+	client = n.client;
+	connect(client, SIGNAL(readyRead()), this, SLOT(receivedData()));
+        connect(client, SIGNAL(connected()), this, SLOT(connectedSlot()));
+        connect(client, SIGNAL(disconnected()), this, SLOT(disconnectedSlot()));
+        mSize = 0;
+}
+
 // Slots : 
 void Net::connectedSlot(){
 	std::cout << "Connectée !" << std::endl;
@@ -20,7 +28,7 @@ void Net::disconnectedSlot(){
 }
 
 void Net::receivedData(){
-	std::cout << "Donnée reçus " << std::endl;
+	std::cout << "Donnée reçus ##NET## " << std::endl;
 	QTcpSocket *sock = qobject_cast<QTcpSocket *> (sender());
 	if(sock == 0)
 		return;
@@ -35,8 +43,9 @@ void Net::receivedData(){
 		return;
 	QString msg;
 	in >> msg;
-	std::cout << msg.toStdString() << std::endl;
+	std::cout << msg.toStdString() << "##NET##" << std::endl;
 	emit receivedDataSignal(msg);
+	mSize = 0;
 }
 
 // Les Méthodes : 

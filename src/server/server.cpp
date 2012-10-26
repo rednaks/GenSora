@@ -56,6 +56,7 @@ void Server::disconnectedClient(){
 	if(clients.contains(sock)){
 		std::cout << "Un client s'est déconnecté" << std::endl;
 		clients.removeOne(sock);
+		authClients.remove(authClients.key(sock));
 	}
 	sock->deleteLater();
 }
@@ -115,6 +116,34 @@ void Server::traitMsg(const QString &msg, QTcpSocket *sock){
 		std::ostringstream oss;
 		oss << rep;
 		QString msg(QString::fromStdString("AUTH:"+oss.str()));
+		sendMsg(msg, sock);
+		if(rep == 1)
+			authClients.insert(QString::fromStdString(u.getPseudo()), sock);
+	}
+	else if(m.getType() == ADDF){
+		std::string pseudo(m.getContent().toStdString());
+		// Chercher si le contact existe dans la base ou non
+		std::string q("SELECT * FROM Users where pseudo ='"+pseudo+"';");
+		db.setQuery(QString(q.c_str()));
+		int rep = db.exec(1);
+		if(rep == 0){ // si l'utilisateur n'existe pas on revoi une erreur.
+			QString msg("ADDF:1");
+			sendMsg(msg, sock);
+			return;
+		}
+		q = "SELECT * FROM Friends WHERE (user_id = (SELECT id FROM Users WHERE pseudo = '"+authClients.key(sock).toStdString()+"') AND friend_id = (SELECT id FROM Users WHERE pseudo = '"+m.getContent().toStdString()+"')) OR (user_id = (SELECT id FROM Users WHERE pseudo = '"+m.getContent().toStdString()+"') AND friend_id = (SELECT id FROM Users WHERE pseudo = '"+authClients.key(sock).toStdString()+"'));";
+		db.setQuery(QString(q.c_str()));
+		rep = db.exec(1);
+		if(rep == 1){ // s'ils sont amis on revoi une erreur.
+			QString msg("ADDF:1");
+			sendMsg(msg, sock);
+			return;
+		}
+		// tout va bien, les deux personnes ne sont pas amis, on les inscrit mnt dans la base Friends
+		q = "INSERT INTO Friends(Id, user_id, friend_id) VALUEs ('',(SELECT id FROM Users WHERE pseudo = '"+authClients.key(sock).toStdString()+"'), (SELECT id FROM Users WHERE pseudo = '"+m.getContent().toStdString()+"')); INSERT INTO Friends(Id, user_id, friend_id) VALUEs ('',(SELECT id FROM Users WHERE pseudo = '"+m.getContent().toStdString()+"'), (SELECT id FROM Users WHERE pseudo = '"+authClients.key(sock).toStdString()+"'));";
+		db.setQuery(QString(q.c_str()));
+		db.exec();
+		QString msg("ADDF:0");
 		sendMsg(msg, sock);
 	}
 } 

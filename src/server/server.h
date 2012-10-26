@@ -21,6 +21,7 @@ private slots:
 private:
 	QTcpServer *server;
 	QList<QTcpSocket *> clients;
+	QMap<QString, QTcpSocket *> authClients;
 	quint16 mSize;
 	
 	void sendMsg(const QString &, QTcpSocket *);

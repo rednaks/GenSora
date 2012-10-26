@@ -1,3 +1,4 @@
+DROP database MiniProjetCpp;
 create database MiniProjetCpp;
 use MiniProjetCpp;
 create table Users(Id int auto_increment, nom varchar(255) NOT NULL, prenom varchar(255) NOT NULL, email varchar(255) NOT NULL, mdp varchar(32) NOT NULL, pseudo varchar(50) UNIQUE, etat ENUM('0','1','2'), PRIMARY KEY(Id,pseudo));

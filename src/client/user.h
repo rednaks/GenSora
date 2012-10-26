@@ -1,11 +1,13 @@
 #ifndef USER_H
 #define USER_H
+#include <iostream>
 #include <string>
 #include <QString>
 #include <QCryptographicHash>
-#include <QByteArray>
+#include <sstream>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
+#include <boost/serialization/vector.hpp>
 
 
 
@@ -41,5 +43,22 @@ public:
         std::string getPseudo();
 	void setPassword(std::string a);
         std::string getPassword();
+};
+
+class FriendList{
+public:
+	FriendList();
+	int size();
+	std::string operator[](int);
+	void operator<<(QString);
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version){
+		ar & list;
+	}
+
+private:
+	std::vector<std::string> list;
+
 };
 #endif

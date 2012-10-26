@@ -33,7 +33,8 @@ int DataBase::exec(int i)
 		}
                 db.close();
 	
-}
+	}
+		return -1;
 	
 }
 void DataBase::exec()
@@ -51,3 +52,24 @@ void DataBase::exec()
 		std::cout << "DEBUG :	Error ! " << db.lastError().text().toStdString() << std::endl;
 	}
 }
+
+QString DataBase::exec(std::string s){
+	if(db.open()){
+		QSqlQuery q;
+		std::cout << "DEBUG : in function QString DataBase::exec(), db opened" << std::endl;
+		FriendList fl;
+		if(q.exec(request)){
+			while(q.next()){
+				std::cout << "Friend : " << q.value(0).toString().toStdString() << std::endl;
+				fl << q.value(0).toString();
+			}
+		}
+		db.close();
+		std::ostringstream oss;
+		boost::archive::text_oarchive oa(oss);
+		oa << fl;
+		return QString::fromStdString(oss.str());
+	}else
+
+		return NULL;
+}	

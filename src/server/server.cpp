@@ -146,4 +146,12 @@ void Server::traitMsg(const QString &msg, QTcpSocket *sock){
 		QString msg("ADDF:0");
 		sendMsg(msg, sock);
 	}
+	else if(m.getType() == GETF){
+
+		std::string q("select pseudo From Users, Friends where Users.Id = Friends.friend_id and Friends.user_id = (select Id from Users where pseudo = '"+m.getContent().toStdString()+"');");
+		db.setQuery(QString(q.c_str()));
+		QString friendsList(db.exec(""));
+		QString msg("GETF:"+friendsList);
+		sendMsg(msg, sock);
+	}		
 } 

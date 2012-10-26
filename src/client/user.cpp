@@ -50,3 +50,19 @@ password = "";
 User::~User(){
 }
 
+FriendList::FriendList(){
+}
+
+int FriendList::size(){
+	return list.size();
+}
+
+void FriendList::operator<<(QString fname){
+
+	list.push_back(fname.toStdString());
+
+}
+
+std::string FriendList::operator[](int i){
+	return list[i];
+}

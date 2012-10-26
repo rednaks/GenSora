@@ -5,7 +5,7 @@ User::User(std::string n, std::string pr, std::string e, std::string ps, std::st
 	prenom = pr;
 	email = e;
 	pseudo = ps;
-	password = pass;
+	password = pass; 
 
 }
 User::User(){
@@ -42,7 +42,7 @@ password = "";
 	return pseudo;
 }
         void User::setPassword(std::string a){
-	password = a;
+	password = a; 
 }
         std::string User::getPassword(){
 	return password;
@@ -50,3 +50,19 @@ password = "";
 User::~User(){
 }
 
+FriendList::FriendList(){
+}
+
+int FriendList::size(){
+	return list.size();
+}
+
+void FriendList::operator<<(QString fname){
+
+	list.push_back(fname.toStdString());
+
+}
+
+std::string FriendList::operator[](int i){
+	return list[i];
+}

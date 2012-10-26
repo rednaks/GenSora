@@ -2,18 +2,11 @@
 #include "authWindow.h"
 ContactWindow::ContactWindow(QWidget *parent): QDialog(parent)
 {
-	connect(parentWidget(), SIGNAL(pRDS(const QString &)), this, SLOT(receivedData(const QString &)));
 	contactList = new QListWidget();
 	addButton = new QPushButton("Ajouter");
 	addButton->setIcon(QIcon("resources/contactIcons/user_add.png"));
-	connect(addButton, SIGNAL(clicked()), this, SLOT(openAddContactWindow()));
 	deleteButton = new QPushButton("Supprimer");
 	deleteButton->setIcon(QIcon("resources/contactIcons/user_remove.png"));
-	contactList->addItem("SouGoy");
-	contactList->addItem("rmh");
-	contactList->addItem("skan BM");
-	contactList->addItem("jmrl3");
-	connect(contactList, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(openNewTab(QListWidgetItem *)));
 
 	QHBoxLayout *buttonLayout = new QHBoxLayout;
 	buttonLayout->addStretch();
@@ -21,14 +14,12 @@ ContactWindow::ContactWindow(QWidget *parent): QDialog(parent)
 	buttonLayout->addWidget(deleteButton);
 	buttonLayout->addStretch();
 
-
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	tabs = new QTabWidget;
 	tabs->setTabsClosable(true);
 	tabs->insertTab(0, contactList, "Contacts");
 	tabList.insert("Contacts", contactList);	
 	widgetIndex.insert(0, contactList);
-	connect(tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
 	
 
 	mainLayout->addWidget(tabs);
@@ -37,6 +28,17 @@ ContactWindow::ContactWindow(QWidget *parent): QDialog(parent)
 	setWindowTitle("Liste de contacts");
 	setLayout(mainLayout);
 	resize(800, 600);
+	
+}
+
+void ContactWindow::init(){
+	connect(parentWidget(), SIGNAL(pRDS(const QString &)), this, SLOT(receivedData(const QString &)));
+	connect(addButton, SIGNAL(clicked()), this, SLOT(openAddContactWindow()));
+	emit getFriendListRequest();
+	connect(contactList, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(openNewTab(QListWidgetItem *)));
+	connect(tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
+	
+
 }
 
 // Les Slots :
@@ -69,5 +71,15 @@ void ContactWindow::openAddContactWindow(){
 void ContactWindow::receivedData(const QString &msg){
 
 	std::cout << "Received data from parent : " << msg.toStdString() << std::endl;
-	emit conReceivedDataSignal(msg);
+	Message m(msg);
+	if(m.getType() == GETF){
+		FriendList fl;
+		std::istringstream iss(m.getContent().toStdString(),std::istringstream::in);
+		boost::archive::text_iarchive ia(iss);
+		ia >> fl;
+		for(int i = 0; i< fl.size(); i++)
+			contactList->addItem(QString::fromStdString(fl[i]));
+	}
+	else 
+		emit conReceivedDataSignal(msg);
 }

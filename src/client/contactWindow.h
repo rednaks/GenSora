@@ -16,6 +16,7 @@ class ContactWindow: public QDialog
 	Q_OBJECT
 public:
 	ContactWindow(QWidget *parent = 0);
+	void init();
 
 private slots:
 	void openNewTab(QListWidgetItem *);
@@ -26,6 +27,7 @@ private slots:
 signals:
 	void conReceivedDataSignal(const QString &);
 	void fwdAddFriendRequest(const QString &);
+	void getFriendListRequest();
 
 private:
 	QPushButton *addButton;

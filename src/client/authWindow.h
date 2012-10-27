@@ -17,7 +17,7 @@ private slots:
 	void openRegisterWindow();
 	void openContactWindow();
 	void receivedDataSlot(const QString &);
-	void sendAddFriendRequest(const QString &);
+	void sendFriendRequest(const QString &);
 	void sendGetFriendRequest();
 
 signals:

@@ -154,4 +154,11 @@ void Server::traitMsg(const QString &msg, QTcpSocket *sock){
 		QString msg("GETF:"+friendsList);
 		sendMsg(msg, sock);
 	}		
-} 
+	else if(m.getType() == DELF){
+		std::string q("DELETE FROM Friends WHERE (user_id = (SELECT Id FROM Users WHERE pseudo = '"+authClients.key(sock).toStdString()+"') and friend_id = (select Id from Users where pseudo = '"+m.getContent().toStdString()+"')) or (friend_id = (SELECT Id FROM Users WHERE pseudo = '"+authClients.key(sock).toStdString()+"') and user_id = (select Id from Users where pseudo = '"+m.getContent().toStdString()+"'));"); 
+		db.setQuery(QString(q.c_str()));
+		db.exec();
+		QString msg("DELF:"+m.getContent());
+		sendMsg(msg, sock);
+	}
+}

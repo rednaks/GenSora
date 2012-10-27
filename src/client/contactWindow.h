@@ -23,11 +23,13 @@ private slots:
 	void closeTab(int );
 	void openAddContactWindow();
 	void receivedData(const QString &);
+	void openConfirmMsgBox();
 
 signals:
 	void conReceivedDataSignal(const QString &);
 	void fwdAddFriendRequest(const QString &);
 	void getFriendListRequest();
+	void delFriendRequest(const QString &);
 
 private:
 	QPushButton *addButton;

@@ -5,6 +5,7 @@
 #define AUTH 1
 #define GETF 2
 #define ADDF 3
+#define DELF 4
 #define ERRO -1
 
 #include <QString>

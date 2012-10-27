@@ -98,8 +98,9 @@ void AuthWindow::receivedDataSlot(const QString &msg){
 		if(m.getContent()=="1"){
 			QMessageBox::information(this, "Bienvenu !", QString::fromUtf8("Vous avez été authentifié avec succès"));
 			ContactWindow *conWin = new ContactWindow(this);
-			connect(conWin, SIGNAL(fwdAddFriendRequest(const QString &)), this, SLOT(sendAddFriendRequest(const QString &)));
+			connect(conWin, SIGNAL(fwdAddFriendRequest(const QString &)), this, SLOT(sendFriendRequest(const QString &)));
 			connect(conWin, SIGNAL(getFriendListRequest()), this, SLOT(sendGetFriendRequest()));
+			connect(conWin, SIGNAL(delFriendRequest(const QString &)), this, SLOT(sendFriendRequest(const QString &)));
 			conWin->init();
         		//this->hide(); 
 			conWin->show();
@@ -111,12 +112,12 @@ void AuthWindow::receivedDataSlot(const QString &msg){
 		}
 	}
 
-	if(m.getType() == ADDF || m.getType() == GETF)
+	if(m.getType() == ADDF || m.getType() == GETF || m.getType() == DELF)
 		emit pRDS(msg);
 
 }
 
-void AuthWindow::sendAddFriendRequest(const QString &msg){
+void AuthWindow::sendFriendRequest(const QString &msg){
 
 	connection->sendMsg(msg);
 }

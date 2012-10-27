@@ -7,6 +7,7 @@ ContactWindow::ContactWindow(QWidget *parent): QDialog(parent)
 	addButton->setIcon(QIcon("resources/contactIcons/user_add.png"));
 	deleteButton = new QPushButton("Supprimer");
 	deleteButton->setIcon(QIcon("resources/contactIcons/user_remove.png"));
+	
 
 	QHBoxLayout *buttonLayout = new QHBoxLayout;
 	buttonLayout->addStretch();
@@ -34,6 +35,7 @@ ContactWindow::ContactWindow(QWidget *parent): QDialog(parent)
 void ContactWindow::init(){
 	connect(parentWidget(), SIGNAL(pRDS(const QString &)), this, SLOT(receivedData(const QString &)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(openAddContactWindow()));
+	connect(deleteButton, SIGNAL(clicked()), this, SLOT(openConfirmMsgBox()));
 	emit getFriendListRequest();
 	connect(contactList, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(openNewTab(QListWidgetItem *)));
 	connect(tabs, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
@@ -80,6 +82,29 @@ void ContactWindow::receivedData(const QString &msg){
 		for(int i = 0; i< fl.size(); i++)
 			contactList->addItem(QString::fromStdString(fl[i]));
 	}
-	else 
+	else if(m.getType() == DELF){
+		if(m.getContent() != "0"){
+			QMessageBox::information(this, QString::fromUtf8("Succès"), QString::fromUtf8(("<strong>"+m.getContent()+"</strong> A été effacé de votre liste d'amis").toStdString().c_str()));
+
+            int pos = contactList->row(contactList->findItems(m.getContent(), Qt::MatchExactly)[0]);
+            contactList->takeItem(pos);
+		}
+	}
+	else if (m.getType() == ADDF)
 		emit conReceivedDataSignal(msg);
+}
+
+void ContactWindow::openConfirmMsgBox(){
+	QMessageBox msgBox;
+	msgBox.setText("Attention !");
+	QString pseudo = contactList->currentItem()->text();
+	msgBox.setInformativeText(QString::fromUtf8(("Vous êtes sûr de vouloir supprimer <strong>"+pseudo+"</strong> de votre liste d'amis ?").toStdString().c_str()));
+	msgBox.setStandardButtons(QMessageBox::Yes| QMessageBox::No);
+	int ret = msgBox.exec();
+	if(ret == QMessageBox::Yes){
+		QString msg = "DELF:"+pseudo;
+		emit delFriendRequest(msg);
+		std::cout << "Effacé !" << std::endl;
+	}
+	
 }

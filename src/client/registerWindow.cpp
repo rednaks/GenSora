@@ -85,7 +85,7 @@ void RegisterWindow::submitData(){
  
 	
 	connection->connectToServer();
-	if(connection->waitForConnected(1000))
+	if(connection->waitForConnected())
 		connection->sendMsg(msg);
 	else {
 		QMessageBox::warning(this, "Erreur", QString::fromUtf8("Impossible de sonnecter au serveur.\nVérifiez votre connexion internet"));

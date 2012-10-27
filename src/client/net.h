@@ -14,7 +14,7 @@ public:
 	void connectToServer();
 	void disconnectFromServer();
 	QAbstractSocket::SocketState state();
-	bool waitForConnected(int);
+	bool waitForConnected();
 
 
 private slots:
@@ -29,6 +29,7 @@ private:
 	quint16 mSize;
 	QString host;
 	quint16 port;
+	quint16 latency;
 	void getNetInfo();
 };
 #endif

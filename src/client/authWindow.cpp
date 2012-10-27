@@ -72,7 +72,7 @@ void AuthWindow::openContactWindow(){
 	connect(connection, SIGNAL(receivedDataSignal(const QString &)), this, SLOT(receivedDataSlot(const QString &)));	
 	connection->connectToServer();
 	std::cout << "STATE : " << connection->state() << std::endl;
-	if(connection->waitForConnected(1000))
+	if(connection->waitForConnected())
 			connection->sendMsg(msg);
 	else{
 		QMessageBox::warning(this, "Erreur !", QString::fromUtf8("Impossible de se connecter au serveur.\nVérifier votre connexion internet"));

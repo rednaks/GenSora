@@ -108,3 +108,7 @@ void ContactWindow::openConfirmMsgBox(){
 	}
 	
 }
+
+void ContactWindow::ajouterContact(QString pseudo){
+	contactList->addItem(pseudo);
+}

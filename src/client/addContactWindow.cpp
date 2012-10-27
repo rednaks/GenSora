@@ -29,7 +29,7 @@ void AddContactWindow::checkField(){
 	if(pseudoLineEdit->text().toStdString() == "")
 		return;
 	emit addFriendRequest("ADDF:"+pseudoLineEdit->text());
-	//connection->sendMsg("ADDF:"+pseudoLineEdit->text());
+	pseudoLineEdit->setEnabled(false);
 }
 
 void AddContactWindow::closeAddContactWindow(){
@@ -48,6 +48,7 @@ void AddContactWindow::receivedData(const QString &msg){
 	if(m.getType() == ADDF){
 		if(m.getContent() == "0"){
 			QMessageBox::information(this, QString::fromUtf8("Succès"), pseudoLineEdit->text()+QString::fromUtf8(" a été ajouté à votre liste d'amis"));
+			((ContactWindow*)parentWidget())->ajouterContact(pseudoLineEdit->text());
 		}
 		else 
 			QMessageBox::warning(this, "Erreur", pseudoLineEdit->text()+QString::fromUtf8(" n'a pas pu être ajouté à votre liste d'amis"));

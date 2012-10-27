@@ -17,6 +17,7 @@ class ContactWindow: public QDialog
 public:
 	ContactWindow(QWidget *parent = 0);
 	void init();
+	void ajouterContact(QString);
 
 private slots:
 	void openNewTab(QListWidgetItem *);

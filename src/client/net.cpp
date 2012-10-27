@@ -6,6 +6,7 @@ Net::Net(){
 	connect(client, SIGNAL(connected()), this, SLOT(connectedSlot()));
 	connect(client, SIGNAL(disconnected()), this, SLOT(disconnectedSlot()));
 	mSize = 0;
+	getNetInfo();
 
 }
 
@@ -15,6 +16,7 @@ Net::Net(Net &n){
         connect(client, SIGNAL(connected()), this, SLOT(connectedSlot()));
         connect(client, SIGNAL(disconnected()), this, SLOT(disconnectedSlot()));
         mSize = 0;
+	getNetInfo();
 }
 
 // Slots : 
@@ -64,7 +66,7 @@ QAbstractSocket::SocketState Net::state(){
 	return client->state();
 }
 
-void Net::connectToServer(QString &host, quint16 &port){
+void Net::connectToServer(){
 
 	client->abort();
 	client->connectToHost(host, port);
@@ -75,4 +77,20 @@ void Net::disconnectFromServer(){
 }
 bool Net::waitForConnected(int ms){
 	return client->waitForConnected(ms);
+}
+
+void Net::getNetInfo(){
+	std::cout << "GETTIN NET INFO ..." << std::endl;
+	QFile file("net.config");
+	if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+		host = "localhost";
+		port = (quint16)8080;
+	}
+	else
+	{
+		host = ((QString)file.readLine()).remove('\n');
+		port = ((QString)file.readLine()).remove('\n').toInt();
+		file.close();
+	}
+	std::cout << "ADDR: " << host.toStdString() << ":" << port << std::endl;
 }

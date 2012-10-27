@@ -70,9 +70,7 @@ void AuthWindow::openContactWindow(){
 		return;
 
 	connect(connection, SIGNAL(receivedDataSignal(const QString &)), this, SLOT(receivedDataSlot(const QString &)));	
-	QString host("localhost");
-	quint16 port(8080);
-	connection->connectToServer(host, port);
+	connection->connectToServer();
 	std::cout << "STATE : " << connection->state() << std::endl;
 	if(connection->waitForConnected(1000))
 			connection->sendMsg(msg);

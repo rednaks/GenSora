@@ -11,7 +11,7 @@ public:
 	Net();
 	Net(Net &);
 	void sendMsg(const QString );
-	void connectToServer(QString &, quint16 &);
+	void connectToServer();
 	void disconnectFromServer();
 	QAbstractSocket::SocketState state();
 	bool waitForConnected(int);
@@ -27,5 +27,8 @@ signals:
 private:
 	QTcpSocket *client;
 	quint16 mSize;
+	QString host;
+	quint16 port;
+	void getNetInfo();
 };
 #endif

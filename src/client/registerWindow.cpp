@@ -83,9 +83,8 @@ void RegisterWindow::submitData(){
 	if(connection->state() == QAbstractSocket::ConnectedState)
 		return;
  
-	QString host("localhost");
-	quint16 port(8080);
-	connection->connectToServer(host, port);
+	
+	connection->connectToServer();
 	if(connection->waitForConnected(1000))
 		connection->sendMsg(msg);
 	else {

@@ -6,6 +6,7 @@ DiscussionWidget::DiscussionWidget(){
 	convArea->setReadOnly(true);
 	msgArea = new QLineEdit;
 	sendButton = new QPushButton("Envoyer");
+	connect(sendButton, SIGNAL(clicked()), this, SLOT(printMsg()));
 	
 	QHBoxLayout *inputsLayout = new QHBoxLayout;
 	inputsLayout->addWidget(msgArea);
@@ -18,8 +19,16 @@ DiscussionWidget::DiscussionWidget(){
 	setLayout(mainLayout);
 }
 
-void DiscussionWidget::setText(QString s){
+void DiscussionWidget::setText(QString sender, QString content){
 
-	convArea->textCursor().insertText(QTime::currentTime().toString()+" >> "+s+"\n");
+	convArea->textCursor().insertHtml(QTime::currentTime().toString()+" <strong>"+sender+"</strong> >> "+content);
+	convArea->textCursor().insertText("\n");
 	convArea->ensureCursorVisible();
+	msgArea->setText("");
+}
+
+void DiscussionWidget::printMsg(){
+	QString msg(msgArea->text());
+	setText("Vous", msg);	
+	emit requestToSendMsg(msg, this);
 }

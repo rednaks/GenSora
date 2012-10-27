@@ -8,7 +8,7 @@
 #include <QTabWidget>
 #include "discussionWidget.h"
 #include "addContactWindow.h"
-#include "authWindow.h"
+#include "user.h"
 
 
 class ContactWindow: public QDialog
@@ -25,12 +25,14 @@ private slots:
 	void openAddContactWindow();
 	void receivedData(const QString &);
 	void openConfirmMsgBox();
+	void fwdRequestToSendMsg(const QString &, DiscussionWidget *);
 
 signals:
 	void conReceivedDataSignal(const QString &);
 	void fwdAddFriendRequest(const QString &);
 	void getFriendListRequest();
 	void delFriendRequest(const QString &);
+	void fwdRequestToSendMsgSignal(const QString &);
 
 private:
 	QPushButton *addButton;
@@ -39,6 +41,7 @@ private:
 	QListWidget *contactList;
 	QMap<int , QWidget *> widgetIndex;
 	QMap<QString, QWidget *> tabList;
+	void printReceivedMsg(const QString &, const QString &);
 };
 #endif
 

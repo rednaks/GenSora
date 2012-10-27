@@ -161,4 +161,16 @@ void Server::traitMsg(const QString &msg, QTcpSocket *sock){
 		QString msg("DELF:"+m.getContent());
 		sendMsg(msg, sock);
 	}
+
+	else if(m.getType() == TMSG){
+		Message msgToFwd(m.getContent());
+		QString sender(authClients.key(sock));
+		QString msgToSend("TMSG:"+sender+":"+msgToFwd.getContent());
+		if(authClients.contains(msgToFwd.getHeader())){
+			std::cout << "Trouvé ! envoi ... " << msgToSend.toStdString() << std::endl;
+			sendMsg(msgToSend, authClients[msgToFwd.getHeader()]);
+		}
+		
+		
+	}
 }

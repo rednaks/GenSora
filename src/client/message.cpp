@@ -9,17 +9,19 @@ Message::Message(const QString &msg){
 int Message::getType() {
 
 	if(header == QString("INSC"))
-		type = 0;
+		type = INSC;
 	else if(header == QString("AUTH"))
-		type = 1;
+		type = AUTH;
 	else if(header == QString("GETF"))
-		type = 2;
+		type = GETF;
 	else if(header == QString("ADDF"))
-		type = 3;
+		type = ADDF;
 	else if(header == QString("DELF"))
-		type = 4;
+		type = DELF;
+	else if(header == QString("TMSG"))
+		type = TMSG;
 	else
-		type = -1;
+		type = ERRO;
 
 	return type;
 }

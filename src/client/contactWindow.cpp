@@ -1,5 +1,5 @@
 #include "contactWindow.h"
-#include "authWindow.h"
+
 ContactWindow::ContactWindow(QWidget *parent): QDialog(parent)
 {
 	contactList = new QListWidget();
@@ -46,6 +46,7 @@ void ContactWindow::init(){
 // Les Slots :
 void ContactWindow::openNewTab(QListWidgetItem *item){
 	DiscussionWidget *discWid = new DiscussionWidget;
+	connect(discWid, SIGNAL(requestToSendMsg(const QString &, DiscussionWidget *)), this, SLOT(fwdRequestToSendMsg(const QString &, DiscussionWidget *)));
 	if(tabList.contains(item->text())){
 		tabs->setCurrentWidget(tabList.value(item->text()));
 		return;
@@ -92,6 +93,12 @@ void ContactWindow::receivedData(const QString &msg){
 	}
 	else if (m.getType() == ADDF)
 		emit conReceivedDataSignal(msg);
+	else if (m.getType() == TMSG){
+		Message rMsg(m.getContent());
+		QString sender(rMsg.getHeader());
+		QString content(rMsg.getContent());
+		printReceivedMsg(sender, content);
+	}
 }
 
 void ContactWindow::openConfirmMsgBox(){
@@ -111,4 +118,16 @@ void ContactWindow::openConfirmMsgBox(){
 
 void ContactWindow::ajouterContact(QString pseudo){
 	contactList->addItem(pseudo);
+}
+
+void ContactWindow::fwdRequestToSendMsg(const QString &m, DiscussionWidget *dw){
+	QString pseudo = tabList.key(dw);
+	QString msg("TMSG:"+pseudo+":"+m);
+	std::cout << "From fwdRequestToSendMsg():" <<msg.toStdString() << std::endl;
+	emit fwdRequestToSendMsgSignal(msg);
+}
+
+void ContactWindow::printReceivedMsg(const QString &sender, const QString &content){
+	
+	((DiscussionWidget*)tabList.value(sender))->setText(sender, content);
 }

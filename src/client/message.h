@@ -6,6 +6,7 @@
 #define GETF 2
 #define ADDF 3
 #define DELF 4
+#define TMSG 5
 #define ERRO -1
 
 #include <QString>

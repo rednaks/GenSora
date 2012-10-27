@@ -7,7 +7,13 @@ class DiscussionWidget: public QWidget{
 
 public:
 	DiscussionWidget();
-	void setText(QString);
+	void setText(QString, QString);
+
+private slots:
+	void printMsg();
+
+signals:
+	void requestToSendMsg(const QString &, DiscussionWidget *);
 
 private:
 	QTextEdit *convArea;

@@ -1,15 +1,19 @@
 #include "authWindow.h"
 
 AuthWindow::AuthWindow(){
+	
+
 	logoLabel = new QLabel();
 	logoLabel->setPixmap(QPixmap("./rc/logo.png"));
 	
-	pseudoLabel = new QLabel("Nom");
+	pseudoLabel = new QLabel("Pseudo");
 	passwordLabel = new QLabel("Mot de passe");
 	pseudoLineEdit = new QLineEdit;
 	passwordLineEdit = new QLineEdit;
 	passwordLineEdit->setEchoMode(QLineEdit::Password);
 	
+
+
 	loginButton = new QPushButton("Se connecter");
 	connect(loginButton, SIGNAL(clicked()), this, SLOT(openContactWindow()));
 	registerButton = new QPushButton("S'enregister");
@@ -41,8 +45,11 @@ AuthWindow::~AuthWindow(){
 	delete registerButton;
 }
 void AuthWindow::openRegisterWindow(){
-	
-	RegisterWindow *regWin = new RegisterWindow(this);
+	 QString pseudoAuth,passwordAuth;
+        pseudoAuth = pseudoLineEdit->text();
+        passwordAuth = passwordLineEdit->text();
+
+	RegisterWindow *regWin = new RegisterWindow(this, pseudoAuth, passwordAuth);
 	regWin->show();
 	
 }

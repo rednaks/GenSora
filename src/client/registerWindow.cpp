@@ -1,6 +1,6 @@
 #include "registerWindow.h"
 
-RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
+RegisterWindow::RegisterWindow(QWidget *parent, QString pseudoAuth, QString passwordAuth):QDialog(parent){
 	
 	nomLabel = new QLabel("Nom");
 	prenomLabel = new QLabel(QString::fromUtf8("Prénom"));
@@ -8,6 +8,7 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	pseudoLabel = new QLabel("Pseudo");
 	passwordLabel = new QLabel("Mot de passe");
 	passwordVLabel = new QLabel("Verification du mot de passe");
+	
 	
 	nomLineEdit = new QLineEdit;
 	nomLineEdit->setMaxLength(255);
@@ -21,10 +22,12 @@ RegisterWindow::RegisterWindow(QWidget *parent):QDialog(parent){
 	emailLineEdit->setMaxLength(255);
 
 	pseudoLineEdit = new QLineEdit;
-	pseudoLineEdit->setMaxLength(50);	
+	pseudoLineEdit->setMaxLength(50);
+	pseudoLineEdit->insert(pseudoAuth);	
 	passwordLineEdit = new QLineEdit;
 	passwordLineEdit->setEchoMode(QLineEdit::Password);
 	passwordLineEdit->setMaxLength(255);
+	passwordLineEdit->insert(passwordAuth);
 	passwordVLineEdit = new QLineEdit;
         passwordVLineEdit->setEchoMode(QLineEdit::Password);
         passwordVLineEdit->setMaxLength(255);

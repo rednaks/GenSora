@@ -12,7 +12,7 @@ class RegisterWindow: public QDialog {
 	Q_OBJECT
 
 public: 
-	RegisterWindow(QWidget *parent = 0);
+	RegisterWindow(QWidget *parent = 0, QString = "",QString = "");
 	~RegisterWindow();
 private slots:
 	void submitData();

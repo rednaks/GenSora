@@ -5,7 +5,11 @@ User::User(std::string n, std::string pr, std::string e, std::string ps, std::st
 	prenom = pr;
 	email = e;
 	pseudo = ps;
-	password = pass; 
+#ifdef USER_BUILD
+	password = ((QString)QCryptographicHash::hash(pass.c_str(),QCryptographicHash::Md5).toHex()).toStdString();
+#elif defined SERVER_BUILD
+	password = pass;
+#endif
 
 }
 User::User(){
@@ -42,7 +46,11 @@ password = "";
 	return pseudo;
 }
         void User::setPassword(std::string a){
-	password = a; 
+#ifdef CLIENT_BUILD
+	password = ((QString)QCryptographicHash::hash(a.c_str(), QCryptographicHash::Md5).toHex()).toStdString();
+#elif defined SERVER_BUILD
+	password = a;
+#endif
 }
         std::string User::getPassword(){
 	return password;

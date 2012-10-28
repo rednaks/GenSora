@@ -9,7 +9,8 @@ CONFIG += debug
 DEPENDPATH += .
 INCLUDEPATH += .
 LIBS += -lboost_serialization
+DEFINES += CLIENT_BUILD
 
 # Input
-HEADERS += authWindow.h registerWindow.h contactWindow.h net.h user.h discussionWidget.h message.h addContactWindow.h
-SOURCES += authWindow.cpp registerWindow.cpp main.cpp contactWindow.cpp net.cpp user.cpp discussionWidget.cpp message.cpp addContactWindow.cpp
+HEADERS += authWindow.h registerWindow.h contactWindow.h net.h ../common/user.h discussionWidget.h ../common/message.h addContactWindow.h
+SOURCES += authWindow.cpp registerWindow.cpp main.cpp contactWindow.cpp net.cpp ../common/user.cpp discussionWidget.cpp ../common/message.cpp addContactWindow.cpp

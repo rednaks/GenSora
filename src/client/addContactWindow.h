@@ -2,8 +2,6 @@
 #define ADD_CONTACT_WINDOW_H
 #include <QtGui>
 #include "contactWindow.h"
-#include "net.h"
-#include "message.h"
 
 class AddContactWindow: public QDialog{
 	Q_OBJECT

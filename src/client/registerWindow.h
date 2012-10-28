@@ -2,8 +2,8 @@
 #define REGISTER_WINDOW_H
 #include <QtGui>
 #include "net.h"
-#include "user.h"
-#include "message.h"
+#include "../common/user.h"
+#include "../common/message.h"
 #include <iostream>
 #include <sstream>
 

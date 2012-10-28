@@ -4,7 +4,7 @@
 #include "registerWindow.h"
 #include "contactWindow.h"
 #include "net.h"
-#include "user.h"
+#include "../common/user.h"
 
 class AuthWindow: public QMainWindow {
 	Q_OBJECT

@@ -3,8 +3,8 @@
 #include <QtNetwork>
 #include <iostream>
 #include "database.h"
-#include "message.h"
-#include "user.h"
+#include "../common/message.h"
+#include "../common/user.h"
 
 class Server: public QObject {
 	Q_OBJECT

@@ -3,7 +3,7 @@
 #include <QtSql>
 #include <QString>
 #include <iostream>
-#include "user.h"
+#include "../common/user.h"
 
 class DataBase
 {

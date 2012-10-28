@@ -2,7 +2,7 @@
 #define NET_H
 #include <QtNetwork>
 #include <iostream>
-#include "message.h"
+#include "../common/message.h"
 
 class Net: public QObject {
 	Q_OBJECT

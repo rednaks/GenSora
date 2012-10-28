@@ -10,8 +10,9 @@ DEPENDPATH += .
 INCLUDEPATH += .
 CONFIG += console debug
 LIBS += -lboost_serialization
+DEFINES += SERVER_BUILD
 
 # Input
-HEADERS += server.h database.h message.h user.h
-SOURCES += main.cpp server.cpp database.cpp message.cpp user.cpp
+HEADERS += server.h database.h ../common/message.h ../common/user.h
+SOURCES += main.cpp server.cpp database.cpp ../common/message.cpp ../common/user.cpp
 

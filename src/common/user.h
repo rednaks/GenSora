@@ -3,6 +3,9 @@
 #include <iostream>
 #include <string>
 #include <QString>
+#ifdef CLIENT_BUILD
+#include <QCryptographicHash>
+#endif
 #include <sstream>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>

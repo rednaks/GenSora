@@ -8,7 +8,8 @@
 #include <QTabWidget>
 #include "discussionWidget.h"
 #include "addContactWindow.h"
-#include "user.h"
+#include "../common/user.h"
+#include "../common/message.h"
 
 
 class ContactWindow: public QDialog

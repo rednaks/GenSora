@@ -4,7 +4,7 @@ Server::Server(){
 
 	server = new QTcpServer(this);
 	// Ecoute de l'addresse 127.0.0.1:8080, si elle est libre.
-	if(!server->listen(QHostAddress::LocalHost, 8080)) {
+	if(!server->listen(QHostAddress::Any, 8080)) {
 		std::cout << "Erreur : " << server->errorString().toStdString() << std::endl;
 	}
 	else {

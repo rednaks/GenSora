@@ -6,6 +6,7 @@ DiscussionWidget::DiscussionWidget(){
 	convArea->setReadOnly(true);
 	msgArea = new QLineEdit;
 	sendButton = new QPushButton("Envoyer");
+	sendButton->setDefault(true);
 	connect(sendButton, SIGNAL(clicked()), this, SLOT(printMsg()));
 	
 	QHBoxLayout *inputsLayout = new QHBoxLayout;

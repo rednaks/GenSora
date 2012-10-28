@@ -5,7 +5,9 @@ ContactWindow::ContactWindow(QWidget *parent): QDialog(parent)
 	contactList = new QListWidget();
 	addButton = new QPushButton("Ajouter");
 	addButton->setIcon(QIcon("resources/contactIcons/user_add.png"));
+	addButton->setDefault(false);
 	deleteButton = new QPushButton("Supprimer");
+	deleteButton->setDefault(false);
 	deleteButton->setIcon(QIcon("resources/contactIcons/user_remove.png"));
 	
 

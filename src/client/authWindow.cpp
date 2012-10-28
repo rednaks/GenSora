@@ -101,7 +101,7 @@ void AuthWindow::receivedDataSlot(const QString &msg){
 			connect(conWin, SIGNAL(delFriendRequest(const QString &)), this, SLOT(sendFriendRequest(const QString &)));
 			connect(conWin, SIGNAL(fwdRequestToSendMsgSignal(const QString &)), this, SLOT(sendFriendRequest(const QString &)));
 			conWin->init();
-        		//this->hide(); 
+        		this->hide(); 
 			conWin->show();
 		}
 		else if(m.getContent() == "0"){

@@ -33,6 +33,8 @@ ContactWindow::ContactWindow(QWidget *parent): QDialog(parent)
 	resize(800, 600);
 	
 }
+ContactWindow::~ContactWindow() { 
+}
 
 void ContactWindow::init(){
 	connect(parentWidget(), SIGNAL(pRDS(const QString &)), this, SLOT(receivedData(const QString &)));
@@ -137,4 +139,16 @@ void ContactWindow::printReceivedMsg(const QString &sender, const QString &conte
 	}
 	((DiscussionWidget*)tabList.value(sender))->setText(sender, content);
 	
+}
+
+void ContactWindow::closeEvent(QCloseEvent *event){
+	parentWidget()->show();
+	event->accept();
+}
+
+void ContactWindow::keyPressEvent(QKeyEvent *evt){
+	if(evt->key() == Qt::Key_Escape)
+		return;
+	else
+		QDialog::keyPressEvent(evt);
 }

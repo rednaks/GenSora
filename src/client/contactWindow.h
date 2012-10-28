@@ -17,6 +17,7 @@ class ContactWindow: public QDialog
 	Q_OBJECT
 public:
 	ContactWindow(QWidget *parent = 0);
+	~ContactWindow();
 	void init();
 	void ajouterContact(QString);
 
@@ -34,6 +35,10 @@ signals:
 	void getFriendListRequest();
 	void delFriendRequest(const QString &);
 	void fwdRequestToSendMsgSignal(const QString &);
+
+protected:
+	void closeEvent(QCloseEvent *);
+	void keyPressEvent(QKeyEvent *);
 
 private:
 	QPushButton *addButton;

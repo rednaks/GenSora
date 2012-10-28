@@ -131,5 +131,10 @@ void ContactWindow::fwdRequestToSendMsg(const QString &m, DiscussionWidget *dw){
 
 void ContactWindow::printReceivedMsg(const QString &sender, const QString &content){
 	
+	if(!tabList.contains(sender)){
+		QList <QListWidgetItem *> il = contactList->findItems(sender, Qt::MatchExactly);
+		openNewTab(il[0]);
+	}
 	((DiscussionWidget*)tabList.value(sender))->setText(sender, content);
+	
 }

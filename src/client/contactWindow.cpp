@@ -142,9 +142,14 @@ void ContactWindow::printReceivedMsg(const QString &sender, const QString &conte
 }
 
 void ContactWindow::closeEvent(QCloseEvent *event){
-	parentWidget()->show();
-	emit contactWindowClosedSignal();
-	event->accept();
+	if(QMessageBox::Yes == QMessageBox::question(this, "Quitter", QString::fromUtf8("Vous êtes sur de vouloir quitter ? \nVous allez être déconnecté"), QMessageBox::Yes | QMessageBox::No))
+	{
+		parentWidget()->show();
+		emit contactWindowClosedSignal();
+		event->accept();
+	}
+	else
+		event->ignore();
 }
 
 void ContactWindow::keyPressEvent(QKeyEvent *evt){

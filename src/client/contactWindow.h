@@ -35,6 +35,7 @@ signals:
 	void getFriendListRequest();
 	void delFriendRequest(const QString &);
 	void fwdRequestToSendMsgSignal(const QString &);
+	void contactWindowClosedSignal();
 
 protected:
 	void closeEvent(QCloseEvent *);

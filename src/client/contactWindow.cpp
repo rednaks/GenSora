@@ -143,6 +143,7 @@ void ContactWindow::printReceivedMsg(const QString &sender, const QString &conte
 
 void ContactWindow::closeEvent(QCloseEvent *event){
 	parentWidget()->show();
+	emit contactWindowClosedSignal();
 	event->accept();
 }
 

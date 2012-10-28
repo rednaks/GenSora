@@ -16,6 +16,7 @@ AuthWindow::AuthWindow(){
 
 	loginButton = new QPushButton("Se connecter");
 	connect(loginButton, SIGNAL(clicked()), this, SLOT(openContactWindow()));
+	connect(passwordLineEdit, SIGNAL(returnPressed()), loginButton, SIGNAL(clicked()));
 	registerButton = new QPushButton("S'enregister");
 	connect(registerButton, SIGNAL(clicked()), this, SLOT(openRegisterWindow()));
 	
@@ -100,6 +101,7 @@ void AuthWindow::receivedDataSlot(const QString &msg){
 			connect(conWin, SIGNAL(getFriendListRequest()), this, SLOT(sendGetFriendRequest()));
 			connect(conWin, SIGNAL(delFriendRequest(const QString &)), this, SLOT(sendFriendRequest(const QString &)));
 			connect(conWin, SIGNAL(fwdRequestToSendMsgSignal(const QString &)), this, SLOT(sendFriendRequest(const QString &)));
+			connect(conWin, SIGNAL(contactWindowClosedSignal()), this, SLOT(contactWindowClosed()));
 			conWin->init();
         		this->hide(); 
 			conWin->show();
@@ -125,5 +127,11 @@ void AuthWindow::sendGetFriendRequest(){
 	std::cout << "SENDING FRIEND REQUEST " << std::endl;
 	QString msg("GETF:"+pseudoLineEdit->text());
 	connection->sendMsg(msg);
+}
+
+void AuthWindow::contactWindowClosed(){
+
+	std::cout << "trying to disconnect from server ... " << std::endl;
+	connection->disconnectFromServer();
 }
 

@@ -19,6 +19,7 @@ private slots:
 	void receivedDataSlot(const QString &);
 	void sendFriendRequest(const QString &);
 	void sendGetFriendRequest();
+	void contactWindowClosed();
 
 signals:
 	void pRDS(const QString &);

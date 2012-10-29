@@ -18,8 +18,9 @@ private slots:
 	void submitData();
 	void verifData();
 	void subscriptionResponse(const QString &);
-
-
+	void quitWin();
+protected:
+	void closeEvent(QCloseEvent *event);
 private:
 	/*Les Labels */
 	QLabel *nomLabel;

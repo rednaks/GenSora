@@ -37,6 +37,7 @@ RegisterWindow::RegisterWindow(QWidget *parent, QString pseudoAuth, QString pass
 	submitButton = new QPushButton("Envoyer");
 	connect(submitButton, SIGNAL(clicked()), this, SLOT(verifData()));
 	cancelButton = new QPushButton("Annuler");
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(quitWin()));	
 
 	QFormLayout *formLayout = new QFormLayout;
 	formLayout->addRow(nomLabel, nomLineEdit);
@@ -52,6 +53,15 @@ RegisterWindow::RegisterWindow(QWidget *parent, QString pseudoAuth, QString pass
 	
 }
 
+void RegisterWindow::quitWin(){
+	this->close();
+	
+}
+void RegisterWindow::closeEvent(QCloseEvent *event){
+	parentWidget()->show();
+	event->accept();
+
+}
 void RegisterWindow::verifData(){
 if((passwordLineEdit->text() == passwordVLineEdit->text()) && (nomLineEdit->text().toStdString()!= "") && (prenomLineEdit->text().toStdString()!= "") && (emailLineEdit->text().toStdString() != "") && (pseudoLineEdit->text().toStdString() != "") && (passwordLineEdit->text().toStdString() != "" ))
 	submitData();

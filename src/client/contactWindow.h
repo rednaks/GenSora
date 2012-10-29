@@ -20,6 +20,7 @@ public:
 	~ContactWindow();
 	void init();
 	void ajouterContact(QString);
+	QString getTabText();
 
 private slots:
 	void openNewTab(QListWidgetItem *);

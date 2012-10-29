@@ -8,6 +8,7 @@ class DiscussionWidget: public QWidget{
 public:
 	DiscussionWidget();
 	void setText(QString, QString);
+	void setSender(QString);
 
 private slots:
 	void printMsg();
@@ -19,5 +20,7 @@ private:
 	QTextEdit *convArea;
 	QLineEdit *msgArea;
 	QPushButton *sendButton;
+	QString sender;
+	void logMsg(QString &, QString &);
 };
 #endif

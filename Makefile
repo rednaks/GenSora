@@ -2,7 +2,7 @@ all:client.bin server.bin
 
 client.bin:
 	@echo "Compilation de client.bin"
-	cd src/client && qmake && make
+	cd src/client && qmake && make && mkdir -p history
 	
 
 server.bin:
@@ -28,5 +28,5 @@ delete: clean
 ifeq ($(wildcard src/*/*.bin),)
 	@echo "Rien à supprimer"
 else
-	rm src/*/*.bin src/*/Makefile
+	rm -r src/*/*.bin src/*/Makefile src/client/history
 endif

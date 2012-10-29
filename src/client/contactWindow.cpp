@@ -138,6 +138,7 @@ void ContactWindow::printReceivedMsg(const QString &sender, const QString &conte
 		openNewTab(il[0]);
 	}
 	((DiscussionWidget*)tabList.value(sender))->setText(sender, content);
+	((DiscussionWidget*)tabList.value(sender))->setSender(sender);
 	
 }
 
@@ -157,4 +158,9 @@ void ContactWindow::keyPressEvent(QKeyEvent *evt){
 		return;
 	else
 		QDialog::keyPressEvent(evt);
+}
+
+QString ContactWindow::getTabText(){
+
+	return contactList->currentItem()->text();
 }

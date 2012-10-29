@@ -115,8 +115,10 @@ void RegisterWindow::subscriptionResponse(const QString &r){
 	}
 
 	if(m.getType() == INSC){
-		if(m.getContent() == "0")
+		if(m.getContent() == "0"){
 			QMessageBox::information(this, "Bienvenu !",QString::fromUtf8("Vous avez été inscrit avec succès"));
+		quitWin();
+		}
 		else if(m.getContent() == "1"){
 			QMessageBox::warning(this, "Erreur !", QString::fromUtf8("Pseuo ou addresse email existant"));
 		}

@@ -52,6 +52,7 @@ void AuthWindow::openRegisterWindow(){
 
 	RegisterWindow *regWin = new RegisterWindow(this, pseudoAuth, passwordAuth);
 	regWin->show();
+	this->hide();
 	
 }
 
@@ -73,8 +74,10 @@ void AuthWindow::openContactWindow(){
 	connect(connection, SIGNAL(receivedDataSignal(const QString &)), this, SLOT(receivedDataSlot(const QString &)));	
 	connection->connectToServer();
 	std::cout << "STATE : " << connection->state() << std::endl;
-	if(connection->waitForConnected())
+	if(connection->waitForConnected()){
 			connection->sendMsg(msg);
+	this->hide();
+}
 	else{
 		QMessageBox::warning(this, "Erreur !", QString::fromUtf8("Impossible de se connecter au serveur.\nVérifier votre connexion internet"));
 		delete connection;

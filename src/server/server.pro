@@ -5,6 +5,7 @@
 TEMPLATE = app
 QT += network
 QT += sql
+QT -= gui
 TARGET = server.bin
 DEPENDPATH += .
 INCLUDEPATH += .
